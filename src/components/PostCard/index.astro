@@ -9,7 +9,7 @@ interface Props {
 const { post } = Astro.props;
 ---
 
-<a class="post" href={post.data.link}>
+<a class="post" href={post.data.link} ontouchstart="">
   <div class="container">
     <h3 class="post-title">{post.data.title}</h3>
     <h3 class="crated-at">{post.data.createdAtStr}</h3>

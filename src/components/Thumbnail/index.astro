@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const { src, class: className, width = 300, height = 200, ...rest } = Astro.props;
+---
+
+<div class="container">
+  <Image class:list={['thumbnail', className]} src={src} width={width} height={height} {...rest} />
+</div>
+
+<style lang="scss">
+  .container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+
+    .thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $transition;
+      transform: scale(1);
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+</style>

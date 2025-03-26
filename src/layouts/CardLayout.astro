@@ -1,15 +1,17 @@
 ---
 interface Props {
   title?: string;
+  createdAt?: string;
   class?: string;
   noCardOnMobile?: boolean;
 }
 
-const { title, class: className, noCardOnMobile, ...props } = Astro.props;
+const { title, createdAt, class: className, noCardOnMobile, ...props } = Astro.props;
 ---
 
 <div class:list={['card-layout', className]} {...props} data-no-card-on-mobile={noCardOnMobile}>
   {title && <h2 class="title">{title}</h2>}
+  {createdAt && <p class="created-at">{createdAt}</p>}
 
   <div class="content" data-has-title={title !== undefined}>
     <slot />
@@ -43,6 +45,11 @@ const { title, class: className, noCardOnMobile, ...props } = Astro.props;
         height: 1px;
         background-color: $color-on-bg-light;
       }
+    }
+
+    .created-at {
+      padding: 2px;
+      text-align: right;
     }
 
     .content[data-has-title='true'] {

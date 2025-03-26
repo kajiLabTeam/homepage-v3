@@ -46,6 +46,9 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
 
       const { created_at, number, published, title } = esa;
       const date: Date = tags.date ?? created_at;
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
 
       return {
         number,
@@ -53,6 +56,7 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
         title,
         tags: t,
         createdAt: date,
+        createdAtStr: `${year}年${month}月${day}日`,
         keywords: _other,
       };
     });
@@ -71,6 +75,6 @@ export const collections = {
     loader: glob({ base: './contents/posts', pattern: '**/*.{md,mdx}' }),
     schema: _esaSchema({
       date: z.coerce.date().optional(),
-    }).transform(({ number, ...esa }) => ({ ...esa, link: `/post/${number}` })),
+    }).transform(({ number, ...esa }) => ({ ...esa, number, link: `/post/${number}` })),
   }),
 };

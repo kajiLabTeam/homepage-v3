@@ -2,25 +2,41 @@ article {
   width: 100%;
   overflow-x: hidden;
 
+  h1,
+  h2,
+  h3 {
+    font-weight: 700;
+    border-bottom: 1px solid color-mix(in srgb, $color-on-bg-light 30%, #fff 70%);
+  }
+
   h1 {
     margin: 30px 0 10px;
-    font-size: 180%;
-    font-weight: 700;
-    border-bottom: 1px solid $color-on-bg-light;
+    font-size: 1.8rem;
   }
 
   h2 {
     margin: 20px 0 10px;
-    font-size: 150%;
-    font-weight: 700;
-    border-bottom: 1px solid $color-on-bg-light;
+    font-size: 1.6rem;
   }
 
   h3 {
     margin: 15px 0 10px;
-    font-size: 125%;
-    font-weight: 700;
-    border-bottom: 1px solid $color-on-bg-light;
+    font-size: 1.4rem;
+  }
+
+  h4 {
+    margin: 10px 0 10px;
+    font-size: 1.2rem;
+  }
+
+  h5 {
+    margin: 10px 0 10px;
+    font-size: 1rem;
+  }
+
+  h6 {
+    margin: 10px 0 10px;
+    font-size: 0.8rem;
   }
 
   p {
@@ -28,6 +44,7 @@ article {
   }
 
   img {
+    margin: 20px;
     max-width: 100%;
     border: 1px solid #eee;
   }
@@ -56,13 +73,12 @@ article {
   pre > code {
     display: block;
     padding: 10.5px;
-    margin: 0 0 11px;
     font-size: 13px;
     line-height: 1.6;
-    color: #333333;
+    color: $color-on-bg;
     word-break: break-all;
     word-wrap: break-word;
-    background-color: #f5f5f5;
+    background-color: $color-bg-dark;
   }
 
   table {
@@ -125,5 +141,31 @@ article[data-page='award'] {
   h2,
   h3 {
     border: none;
+  }
+}
+
+article[data-page='post'] {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+  }
+
+  h6 {
+    font-size: 0.8rem;
   }
 }

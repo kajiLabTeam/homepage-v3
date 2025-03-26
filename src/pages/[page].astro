@@ -63,10 +63,11 @@ const { Content, headings } = await render(page);
     }
 
     .content {
-      grid-column: 4/-1;
       padding: 30px 20px 30px;
-
+      grid-column: 4/-1;
+      
       @include tablet {
+        padding: 30px 10px 30px;
         grid-column: 1/-1;
       }
     }

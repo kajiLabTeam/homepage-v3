@@ -12,12 +12,15 @@ const pages = [
   { title: 'award', href: '/award' },
   { title: 'access', href: '/access' },
   { title: 'post', href: '/post' },
+  { title: 'post', href: '/post' },
+  { title: 'post', href: '/post' },
+  { title: 'post', href: '/post' },
 ];
 ---
 
 <header>
   <nav>
-    <div class="container">
+    <div class:list={['container', 'logo']}>
       <Image src={kaji} alt="梶研ロゴ" height="40" width="40" densities={[2]} />
       <h1 class="title">Kaji Lab</h1>
     </div>
@@ -38,7 +41,7 @@ const pages = [
 
 <style lang="scss">
   header {
-    padding: 0 10px;
+    padding: 0 20px;
     height: $header-height;
     background-color: $color-bg;
     position: sticky;
@@ -54,11 +57,21 @@ const pages = [
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 20px;
 
       .container {
+        height: 100%;
         display: flex;
         align-items: center;
         gap: 15px;
+
+        &.logo {
+          min-width: 150px;
+        }
+
+        &.links {
+          overflow-x: scroll;
+        }
 
         @include mobile {
           &.links {

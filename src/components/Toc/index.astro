@@ -11,8 +11,8 @@ const { headings, depth = 3, class: className, ...rest } = Astro.props;
 const filteredHeadings = headings.filter((heading) => heading.depth <= depth);
 ---
 
-<CardLayout title="目次" class="toc-card">
-  <nav class:list={['toc', className]} {...rest}>
+<CardLayout title="目次" class:list={['toc-card', className]} {...rest}>
+  <nav class="toc">
     <ul>
       {
         filteredHeadings.map((heading) => (

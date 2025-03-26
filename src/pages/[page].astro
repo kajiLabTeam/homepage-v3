@@ -26,7 +26,7 @@ const { Content, headings } = await render(page);
   <main>
     <div class="side">
       <TopSection class="top-section" />
-      <Toc class="news-section" headings={headings} />
+      <Toc class="toc-section" headings={headings} />
     </div>
 
     <CardLayout class="content" title={page.data.title}>
@@ -41,7 +41,7 @@ const { Content, headings } = await render(page);
 
 <style lang="scss">
   main {
-    padding: 20px 24px 60px 20px;
+    padding: 40px 24px 60px 20px;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 30px;
@@ -54,14 +54,26 @@ const { Content, headings } = await render(page);
       flex-direction: column;
       gap: 30px;
 
-      @include mobile {
+      @include tablet {
         display: contents;
+
+        .top-section {
+          grid-column: 1/-1;
+        }
+
+        .toc-section {
+          display: none;
+        }
       }
     }
 
     .content {
       grid-column: 4/-1;
       padding: 30px 20px 30px;
+
+      @include tablet {
+        grid-column: 1/-1;
+      }
     }
   }
 </style>

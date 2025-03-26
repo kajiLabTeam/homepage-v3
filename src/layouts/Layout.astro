@@ -23,6 +23,7 @@ const OGP_URL = new URL(OGP.src, Astro.url).toString();
 ---
 
 <!doctype html>
+<!-- LocalStorage に `showTechStack: true` を設定しリロードすると、トップページに技術スタックが追加されます👀 -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -54,6 +55,11 @@ const OGP_URL = new URL(OGP.src, Astro.url).toString();
     </main>
     <Footer />
   </body>
+  <script>
+    console.log(
+      'LocalStorage に `showTechStack: true` を設定しリロードすると、トップページに技術スタックが追加されます👀',
+    );
+  </script>
 </html>
 
 <style lang="scss" is:global>

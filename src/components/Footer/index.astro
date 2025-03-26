@@ -1,4 +1,39 @@
----
----
+<footer>
+  <div class="container">
+    <p class="copyright">© 2025 愛知工業大学 梶研究室</p>
 
-<footer>フッター</footer>
+    <div class="line"></div>
+
+    <p class="contact">
+      <span> mail: </span>
+      <a href="mailto:kaji@aitech.ac.jp">kaji@aitech.ac.jp</a>
+    </p>
+  </div>
+</footer>
+
+<style lang="scss">
+  footer {
+    height: $footer-height;
+    text-align: center;
+
+    .container {
+      margin-inline: auto;
+      padding-inline: 10px;
+      min-width: fit-content;
+      width: 60%;
+      font-size: 0.8rem;
+      font-weight: bold;
+
+      .line {
+        width: 100%;
+        height: 1.5px;
+        background-color: $color-on-bg-light;
+      }
+
+      .contact,
+      .contact > a {
+        color: $color-on-bg-light;
+      }
+    }
+  }
+</style>

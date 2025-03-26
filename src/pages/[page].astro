@@ -22,25 +22,23 @@ const page = Astro.props;
 const { Content, headings } = await render(page);
 ---
 
-<Layout>
-  <main>
-    <div class="side">
-      <TopSection class="top-section" />
-      <Toc class="toc-section" headings={headings} />
-    </div>
+<Layout class="main">
+  <div class="side">
+    <TopSection class="top-section" />
+    <Toc class="toc-section" headings={headings} />
+  </div>
 
-    <CardLayout class="content" title={page.data.title}>
-      <article data-page={page.data.tags?.page}>
-        <Content />
-      </article>
-    </CardLayout>
-  </main>
+  <CardLayout class="content" title={page.data.title}>
+    <article data-page={page.data.tags?.page}>
+      <Content />
+    </article>
+  </CardLayout>
 </Layout>
 
 <style is:global set:html={mdStyle}></style>
 
 <style lang="scss">
-  main {
+  .main {
     padding: 40px 24px 60px 20px;
     display: grid;
     grid-template-columns: repeat(12, 1fr);

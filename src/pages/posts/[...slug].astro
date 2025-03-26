@@ -1,0 +1,112 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getPostKeywords, getPosts } from '@/utils/content';
+import type { CollectionEntry } from 'astro:content';
+import PostCard from '@/components/PostCard/index.astro';
+import Pagenation from '@/components/Pagenation/index.astro';
+
+export async function getStaticPaths() {
+  const PER_PAGE = 12;
+  const keywords = await getPostKeywords();
+
+  const posts: Record<string, CollectionEntry<'posts'>[]> = {
+    '': await getPosts(),
+    ...Object.fromEntries(await Promise.all(keywords.map(async (keyword) => [keyword, await getPosts({ keyword })]))),
+  };
+
+  const pages = Object.entries(posts).flatMap(([keyword, posts]) => {
+    const pageCount = Math.ceil(posts.length / PER_PAGE);
+    const pages = Array.from({ length: pageCount + 1 }, (_, i) => {
+      const slug = `${keyword ? `${keyword}/` : ''}${i > 0 ? i : ''}`;
+      const offset = Math.max(0, i - 1) * PER_PAGE;
+
+      return {
+        params: { slug },
+        props: {
+          keyword,
+          keywords: ['', ...keywords],
+          page: Math.max(1, i),
+          pageCount,
+          posts: posts.slice(offset, offset + PER_PAGE),
+        },
+      };
+    });
+    return pages;
+  });
+
+  return pages;
+}
+
+interface Props {
+  keyword: string;
+  keywords: string[];
+  page: number;
+  pageCount: number;
+  posts: CollectionEntry<'posts'>[];
+}
+const { keyword, keywords, page, pageCount, posts } = Astro.props;
+
+function link(category: string, page: number = 1) {
+  return `/posts/${category ? `${category}/` : ''}${page > 1 ? page : ''}`;
+}
+---
+
+<Layout class="main">
+  <h2 class="title">投稿一覧</h2>
+  <div class="keywords">
+    {
+      keywords.map((kw) => (
+        <a href={link(kw)} data-active={keyword === kw}>
+          #{kw === '' ? 'all' : kw}
+        </a>
+      ))
+    }
+  </div>
+
+  <div class="posts">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+
+  <Pagenation page={page} pageCount={pageCount} getPagePath={(n) => link(keyword, n)} />
+</Layout>
+
+<style lang="scss">
+  .main {
+    width: 100%;
+
+    .title {
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .keywords {
+      padding: 10px 0 20px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+
+      a {
+        padding: 5px 12px;
+        color: $color-primary;
+        border: solid 1px $color-primary;
+        border-radius: 5px;
+        text-transform: capitalize;
+
+        &[data-active='true'] {
+          color: $color-bg;
+          background-color: $color-primary;
+        }
+      }
+    }
+
+    .posts {
+      max-width: 1200px;
+      padding: 20px 0;
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, 300px);
+      gap: 20px;
+      justify-content: center;
+    }
+  }
+</style>

@@ -7,21 +7,19 @@ import NewsSection from './_sections/NewsSection.astro';
 import RecentPosts from './_sections/RecentPosts.astro';
 ---
 
-<Layout>
-  <main>
-    <div class="side">
-      <TopSection class="top-section" />
-      <NewsSection class="news-section" />
-    </div>
+<Layout class="main">
+  <div class="side">
+    <TopSection class="top-section" />
+    <NewsSection class="news-section" />
+  </div>
 
-    <NoticeSection class="notice-section" />
-    <AboutSection class="about-section" />
-    <RecentPosts class="posts-section" />
-  </main>
+  <NoticeSection class="notice-section" />
+  <AboutSection class="about-section" />
+  <RecentPosts class="posts-section" />
 </Layout>
 
 <style lang="scss">
-  main {
+  .main {
     padding: 40px 24px 60px 20px;
     display: grid;
     grid-template-columns: repeat(12, 1fr);

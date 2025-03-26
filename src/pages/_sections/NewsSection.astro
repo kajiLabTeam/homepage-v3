@@ -7,7 +7,7 @@ interface Props {
 }
 const { class: className, ...props } = Astro.props;
 
-const news = await getPosts(0, 6);
+const news = await getPosts({ limit: 6 });
 ---
 
 <CardLayout class={className} {...props} title="news">

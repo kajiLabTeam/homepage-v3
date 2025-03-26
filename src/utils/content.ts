@@ -3,13 +3,30 @@ import kaji from '@/assets/kaji.webp';
 
 const IMAGE_REGEX = /[\s\n]*(<img.*?src=['"](.*)['"].*>|!\[.*\]\((.*)\))/;
 
-export async function getPosts(offset: number = 0, limit: number | undefined = undefined) {
+interface GetPostsArgs {
+  offset?: number;
+  limit?: number;
+  keyword?: string;
+}
+function _isKeywordMatch(post: CollectionEntry<'posts'>, keyword: string | undefined) {
+  if (!keyword) return true;
+  return post.data.keywords.includes(keyword);
+}
+export async function getPosts({ offset = 0, limit, keyword }: GetPostsArgs = {}) {
   const posts = (await getCollection('posts'))
     .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
-    .filter((post) => post.data.title !== 'README')
-    .slice(offset, limit);
+    .filter((post) => post.data.title !== 'README' && _isKeywordMatch(post, keyword))
+    .slice(offset, limit && offset + limit);
 
   return posts;
+}
+
+export async function getPostKeywords() {
+  const posts = await getPosts();
+  const keywords = posts.flatMap((post) => post.data.keywords);
+  const uniqueKeywords = Array.from(new Set(keywords));
+
+  return uniqueKeywords;
 }
 
 export async function getPage(pageName: string) {

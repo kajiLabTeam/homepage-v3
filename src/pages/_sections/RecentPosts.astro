@@ -1,26 +1,18 @@
 ---
-import { getPosts, getThumbnail } from '@/utils/content';
-import { Image } from 'astro:assets';
+import { getPosts } from '@/utils/content';
+import PostCard from '@/components/PostCard/index.astro';
 
 interface Props {
   class?: string;
 }
 const { class: className, ...props } = Astro.props;
 
-const posts = await getPosts(0, 6);
+const posts = await getPosts({ limit: 6 });
 ---
 
 <div class:list={['posts', className]} {...props}>
   <h2 class="title">最近の投稿</h2>
-
-  {
-    posts.map((post) => (
-      <a class="post" href={post.data.link}>
-        <h3 class="post-title">{post.data.title}</h3>
-        <Image class="thumbnail" src={getThumbnail(post)} alt={post.data.title} width="480" height="270" />
-      </a>
-    ))
-  }
+  {posts.map((post) => <PostCard post={post} />)}
 </div>
 
 <style lang="scss">
@@ -33,48 +25,6 @@ const posts = await getPosts(0, 6);
       padding-block: 20px 10px;
       grid-column: 1/-1;
       text-align: center;
-    }
-
-    .post {
-      width: 100%;
-      aspect-ratio: 16/9;
-      position: relative;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: $shadow;
-      cursor: pointer;
-
-      .post-title {
-        padding: 20px;
-        width: fit-content;
-        height: fit-content;
-        color: $color-text;
-        text-align: center;
-        position: absolute;
-        margin: auto;
-        inset: 0;
-        line-height: 100%;
-        opacity: 0;
-        transition: opacity $transition;
-        z-index: 1;
-      }
-
-      .thumbnail {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: filter $transition;
-      }
-
-      &:hover {
-        .post-title {
-          opacity: 1;
-        }
-
-        .thumbnail {
-          filter: brightness(3) blur(5px);
-        }
-      }
     }
   }
 </style>

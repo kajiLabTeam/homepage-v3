@@ -1,0 +1,94 @@
+---
+interface Props {
+  page: number;
+  pageCount: number;
+  getPagePath: (n: number) => string;
+}
+const { page, pageCount, getPagePath } = Astro.props;
+
+const N = 2;
+
+const min = page - N < 1 ? 1 : page - N;
+const max = page + N > pageCount ? pageCount : page + N;
+const visiblePageNums = Array.from({ length: max - min + 1 }, (_, i) => min + i);
+---
+
+<div class="pagenation">
+  {visiblePageNums.at(0)! > 1 && <a href={getPagePath(1)}>1</a>}
+  {visiblePageNums.at(0)! > 2 && <span class="leader" />}
+
+  {
+    visiblePageNums.map((n) => (
+      <a href={getPagePath(n)} data-current={n === page}>
+        {n}
+      </a>
+    ))
+  }
+
+  {visiblePageNums.at(-1)! < pageCount - 1 && <span class="leader" />}
+  {visiblePageNums.at(-1)! < pageCount && <a href={getPagePath(pageCount)}>{pageCount}</a>}
+</div>
+
+<style lang="scss">
+  .pagenation {
+    margin: 40px auto 0 auto;
+    width: fit-content;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    a {
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+      border: solid 1px;
+      color: $color-text;
+      border-color: $color-on-bg;
+      border-radius: 999px;
+      text-align: center;
+      line-height: 28px;
+      text-decoration: none;
+      cursor: pointer;
+      background-color: transparent;
+
+      &[data-current='true'] {
+        color: $color-bg;
+        background-color: $color-primary-light;
+        border-color: $color-primary-light;
+      }
+
+      &[data-hide='true'] {
+        visibility: hidden;
+        display: contents;
+      }
+    }
+
+    .leader {
+      margin-inline: 15px;
+      width: 4px;
+      height: 4px;
+      display: inline-block;
+      background-color: $color-on-bg;
+      position: relative;
+
+      &::before,
+      &::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 4px;
+        background-color: $color-on-bg;
+        position: absolute;
+      }
+
+      &::before {
+        left: -10px;
+      }
+
+      &::after {
+        right: -10px;
+      }
+    }
+  }
+</style>

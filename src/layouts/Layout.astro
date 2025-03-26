@@ -1,6 +1,11 @@
 ---
 import Header from '@/components/Header/index.astro';
 import Footer from '@/components/Footer/index.astro';
+
+interface Props {
+  class?: string;
+}
+const { class: className, ...rest } = Astro.props;
 ---
 
 <!doctype html>
@@ -14,7 +19,9 @@ import Footer from '@/components/Footer/index.astro';
   </head>
   <body>
     <Header />
-    <slot />
+    <main class={className} {...rest}>
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>

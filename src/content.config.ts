@@ -5,21 +5,35 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
   return z
     .object({
       title: z.string(),
-      tags: z.preprocess((tags) => {
-        if (tags == null) return {};
-        if (typeof tags !== 'string') throw new Error('tags must be a string');
+      tags: z.preprocess(
+        (tags) => {
+          if (tags == null) return { _other: [] as string[] };
+          if (typeof tags !== 'string') throw new Error('tags must be a string');
 
-        const entries = tags.split(',').map((pair) => {
-          const pairs = pair.split(':');
-          const key = pairs.at(0)?.trim();
-          const value = pairs.at(1)?.trim();
-          if (!key || !value) return null;
-          return [key, value];
-        });
+          const entries = tags
+            .split(',')
+            .map((pair) => {
+              const pairs = pair.split(':');
+              const key = pairs.at(0)?.trim();
+              const value = pairs.at(1)?.trim();
+              if (!key || !value) return null;
+              return [key, value];
+            })
+            .filter((entry): entry is [string, string] => entry !== null);
+          const otherTags = tags
+            .split(',')
+            .map((pair) => {
+              if (pair.includes(':')) return null;
+              const key = pair.trim();
+              if (!key) return null;
+              return key;
+            })
+            .filter((t): t is string => t !== null);
 
-        const noneNullEntries = entries.filter((entry): entry is [string, string] => entry !== null);
-        return z.object<T>(tagsSchema).parse(Object.fromEntries(noneNullEntries));
-      }, z.object(tagsSchema)),
+          return { _other: otherTags, ...Object.fromEntries(entries) };
+        },
+        z.object({ ...tagsSchema, _other: z.array(z.string()) }),
+      ),
       created_at: z.coerce.date(),
       updated_at: z.coerce.date(),
       published: z.boolean(),
@@ -27,14 +41,19 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
     })
     .transform(({ tags, ...esa }) => {
       if (tags === undefined) throw new Error('tags is required');
+      const { _other, ...t } = tags;
+      if (_other === undefined) throw new Error('_other is required');
+
       const { created_at, number, published, title } = esa;
       const date: Date = tags.date ?? created_at;
+
       return {
         number,
         published,
         title,
-        tags,
+        tags: t,
         createdAt: date,
+        keywords: _other,
       };
     });
 }
@@ -46,7 +65,7 @@ export const collections = {
       date: z.coerce.date().optional(),
       page: z.string().optional().default('other'),
       sort: z.coerce.number().optional().default(0),
-    }).transform(({ tags, ...esa }) => ({ ...esa,tags, link: `/${tags.page}` })),
+    }).transform(({ tags, ...esa }) => ({ ...esa, tags, link: `/${tags.page}` })),
   }),
   posts: defineCollection({
     loader: glob({ base: './contents/posts', pattern: '**/*.{md,mdx}' }),

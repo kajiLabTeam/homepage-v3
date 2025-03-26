@@ -1,0 +1,25 @@
+<script src="/snow/particles.min.js" is:inline defer></script>
+<script src="/snow/snow.js" is:inline defer></script>
+<div id="snow"></div>
+
+<script>
+  // 11~2月のみ表示
+  const month = new Date().getMonth() + 1;
+  const isWinter = month < 2 || month > 11;
+  const forceSnow = localStorage.getItem('snow');
+
+  if (isWinter || forceSnow) {
+    const snow = document.getElementById('snow');
+    if (snow) snow.style.display = 'block';
+  }
+</script>
+
+<style>
+  #snow {
+    display: none;
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+  }
+</style>

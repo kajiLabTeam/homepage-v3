@@ -1,15 +1,23 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getPage } from '@/utils/content';
-import { render } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import TopSection from './_sections/TopSection.astro';
 import Toc from '@/components/Toc/index.astro';
 import CardLayout from '@/layouts/CardLayout.astro';
 import mdStyle from '@/styles/md-style.scss';
 
-const page = await getPage('about');
-if (page === undefined) throw new Error('Page not found');
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
 
+  return pages.map((page) => ({
+    params: { page: page.data.tags?.page },
+    props: page,
+  }));
+}
+
+type Props = CollectionEntry<'pages'>;
+
+const page = Astro.props;
 const { Content, headings } = await render(page);
 ---
 
@@ -20,8 +28,8 @@ const { Content, headings } = await render(page);
       <Toc class="news-section" headings={headings} />
     </div>
 
-    <CardLayout class="about">
-      <article>
+    <CardLayout class="content" title={page.data.title}>
+      <article data-page={page.data.tags?.page}>
         <Content />
       </article>
     </CardLayout>
@@ -39,7 +47,7 @@ const { Content, headings } = await render(page);
 
     .side {
       grid-column: 1/4;
-      grid-row: span 3;
+      grid-row: span 1;
 
       display: flex;
       flex-direction: column;
@@ -50,10 +58,9 @@ const { Content, headings } = await render(page);
       }
     }
 
-    .about {
+    .content {
       grid-column: 4/-1;
-
-      padding: 10px 20px 30px;
+      padding: 30px 20px 30px;
     }
   }
 </style>

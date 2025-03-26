@@ -3,21 +3,21 @@ article {
   overflow-x: hidden;
 
   h1 {
-    margin: 20px 0 10px;
+    margin: 30px 0 10px;
     font-size: 180%;
     font-weight: 700;
     border-bottom: 1px solid $color-on-bg-light;
   }
 
   h2 {
-    margin: 30px 0 10px;
+    margin: 20px 0 10px;
     font-size: 150%;
     font-weight: 700;
     border-bottom: 1px solid $color-on-bg-light;
   }
 
   h3 {
-    margin: 30px 0 10px;
+    margin: 15px 0 10px;
     font-size: 125%;
     font-weight: 700;
     border-bottom: 1px solid $color-on-bg-light;
@@ -46,6 +46,10 @@ article {
 
     ul {
       list-style-type: circle;
+    }
+
+    li {
+      padding-block: 5px;
     }
   }
 
@@ -103,5 +107,23 @@ article {
 
   & > *:not(h1, h2, h3, h4, h5, h6) {
     margin-left: 10px;
+  }
+}
+
+article[data-page='member'],
+article[data-page='publication'],
+article[data-page='award'] {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  h1 {
+    background: linear-gradient(transparent 60%, #ff6 60%, #ff6 90%, transparent 90%);
+    border: none;
+  }
+
+  h2,
+  h3 {
+    border: none;
   }
 }

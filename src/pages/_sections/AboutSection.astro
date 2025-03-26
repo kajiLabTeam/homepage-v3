@@ -1,6 +1,6 @@
 ---
 import CardLayout from '@/layouts/CardLayout.astro';
-import mdStyle from '@/styles/md-style.scss?raw';
+import '@/styles/md-style.scss';
 
 interface Props {
   class?: string;
@@ -29,8 +29,6 @@ const { class: className, ...props } = Astro.props;
 
   <a class="detail" href="/about">詳しく見る</a>
 </CardLayout>
-
-<style is:global set:html={mdStyle}></style>
 
 <style lang="scss">
   .detail {

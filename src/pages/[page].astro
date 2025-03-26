@@ -4,7 +4,7 @@ import { render, type CollectionEntry } from 'astro:content';
 import TopSection from './_sections/TopSection.astro';
 import Toc from '@/components/Toc/index.astro';
 import CardLayout from '@/layouts/CardLayout.astro';
-import mdStyle from '@/styles/md-style.scss?raw';
+import '@/styles/md-style.scss';
 import { getPages } from '@/utils/content';
 
 export async function getStaticPaths() {
@@ -34,8 +34,6 @@ const { Content, headings } = await render(page);
     </article>
   </CardLayout>
 </Layout>
-
-<style is:global set:html={mdStyle}></style>
 
 <style lang="scss">
   .main {

@@ -1,0 +1,95 @@
+---
+import CardLayout from '@/layouts/CardLayout.astro';
+
+import Kotlin from '@/components/icons/Kotlin.astro';
+import Swift from '@/components/icons/Swift.astro';
+import Python from '@/components/icons/Python.astro';
+import Unity from '@/components/icons/Unity.astro';
+
+import Go from '@/components/icons/Go.astro';
+import Node from '@/components/icons/Node.astro';
+
+import React from '@/components/icons/React.astro';
+import Next from '@/components/icons/Next.astro';
+import HTML from '@/components/icons/HTML.astro';
+import CSS from '@/components/icons/CSS.astro';
+import JavaScript from '@/components/icons/JavaScript.astro';
+import TypeScript from '@/components/icons/TypeScript.astro';
+
+// アイコンは https://icones.js.org/collection/material-icon-theme より
+
+interface Props {
+  class?: string;
+}
+const { class: className, ...props } = Astro.props;
+---
+
+<CardLayout id="techstack" class:list={[className, 'container']} title="技術スタック" {...props}>
+  <h2>データサイエンス</h2>
+  <div class="icons">
+    <Python />
+  </div>
+
+  <h2>モバイル / ウェアラブル</h2>
+  <div class="icons">
+    <Kotlin />
+    <Swift />
+  </div>
+
+  <h2>VR / XR</h2>
+  <div class="icons">
+    <Unity />
+    <Swift />
+  </div>
+
+  <h2>バックエンド</h2>
+  <div class="icons">
+    <Go />
+    <Node />
+    <TypeScript />
+    <Python />
+  </div>
+
+  <h2>Webフロントエンド</h2>
+  <div class="icons">
+    <HTML />
+    <CSS />
+    <JavaScript />
+    <TypeScript />
+    <React />
+    <Next />
+  </div>
+</CardLayout>
+
+<script>
+  const show = localStorage.getItem('showTechStack');
+  const techstack = document.getElementById('techstack');
+  if (show && techstack) techstack.style.display = 'flex';
+</script>
+
+<style lang="scss">
+  .container {
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+    h2 {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    .icons {
+      padding-inline: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px;
+
+      svg {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  }
+</style>

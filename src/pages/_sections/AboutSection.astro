@@ -8,7 +8,7 @@ interface Props {
 const { class: className, ...props } = Astro.props;
 ---
 
-<CardLayout class={className} {...props} title="梶研はどんな研究しているの？">
+<CardLayout class={className} {...props} title="梶研はどんな研究しているの？" noCardOnMobile>
   <p>
     TODO:MDのCSSはまとめてあとで変更する． 高度ICT社会における人とコンピュータの関わりを追求する研究室です．
     特に力を入れているテーマとして「屋内位置推定と位置情報サービス」「インタラクションメディア」が挙げられます．

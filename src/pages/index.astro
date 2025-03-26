@@ -35,26 +35,64 @@ import RecentPosts from './_sections/RecentPosts.astro';
       flex-direction: column;
       gap: 30px;
 
-      @include mobile {
-        display: contents;
+      @include pc {
+        .news-section {
+          position: sticky;
+          top: $header-height + 20px;
+        }
       }
 
-      .news-section {
-        position: sticky;
-        top: $header-height + 20px;
+      @include tablet {
+        display: contents;
+
+        .top-section {
+          grid-column: 1/-1;
+        }
+
+        .news-section {
+          grid-column: span 4;
+          grid-row: span 2;
+        }
+      }
+
+      @include mobile {
+        .news-section {
+          display: none;
+        }
       }
     }
 
     .notice-section {
       grid-column: span 9;
+
+      @include tablet {
+        grid-column: span 8;
+      }
+
+      @include mobile {
+        grid-column: 1/-1;
+      }
     }
 
     .about-section {
       grid-column: span 9;
+
+      @include tablet {
+        grid-column: span 8;
+        grid-row: span 3;
+      }
+
+      @include mobile {
+        grid-column: 1/-1;
+      }
     }
 
     .posts-section {
       grid-column: 4/-1;
+
+      @include tablet {
+        grid-column: 1/-1;
+      }
     }
   }
 </style>

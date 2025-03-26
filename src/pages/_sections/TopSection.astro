@@ -10,7 +10,7 @@ interface Props {
 const { class: className, ...props } = Astro.props;
 ---
 
-<CardLayout class={className} {...props}>
+<CardLayout class={className} {...props} noCardOnMobile>
   <Image class="logo" src={kaji} alt="梶研ロゴ" width="120" height="120" />
   <h2>KAJI LABORATORY</h2>
   <p>

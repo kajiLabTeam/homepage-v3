@@ -2,12 +2,13 @@
 interface Props {
   title?: string;
   class?: string;
+  noCardOnMobile?: boolean;
 }
 
-const { title, class: className, ...props } = Astro.props;
+const { title, class: className, noCardOnMobile, ...props } = Astro.props;
 ---
 
-<div class:list={['card-layout', className]} {...props}>
+<div class:list={['card-layout', className]} {...props} data-no-card-on-mobile={noCardOnMobile}>
   {title && <h2 class="title">{title}</h2>}
 
   <div class="content" data-has-title={title !== undefined}>
@@ -20,6 +21,14 @@ const { title, class: className, ...props } = Astro.props;
     padding: 15px;
     box-shadow: $shadow;
     border-radius: 15px;
+
+    @include mobile {
+      &[data-no-card-on-mobile='true'] {
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
 
     .title {
       position: relative;

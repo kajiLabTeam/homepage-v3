@@ -4,7 +4,7 @@ import { render, type CollectionEntry } from 'astro:content';
 import TopSection from './_sections/TopSection.astro';
 import Toc from '@/components/Toc/index.astro';
 import CardLayout from '@/layouts/CardLayout.astro';
-import mdStyle from '@/styles/md-style.scss';
+import mdStyle from '@/styles/md-style.scss?raw';
 import { getPages } from '@/utils/content';
 
 export async function getStaticPaths() {

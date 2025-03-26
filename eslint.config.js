@@ -1,13 +1,20 @@
 import { defineConfig } from 'eslint/config';
-import globals from 'globals';
 import js from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import globals from 'globals';
 import eslintPluginAstro from 'eslint-plugin-astro';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default defineConfig([
-  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
-  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'], languageOptions: { globals: globals.browser } },
-  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'], plugins: { js }, extends: ['js/recommended'] },
-  tseslint.configs.recommended,
-  ...eslintPluginAstro.configs.recommended,
+  js.configs.recommended,
+  eslintConfigPrettier,
+  ...eslintPluginAstro.configs['flat/recommended'],
+  ...eslintPluginAstro.configs['flat/jsx-a11y-recommended'],
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        dataLayer: false,
+      },
+    },
+  },
 ]);

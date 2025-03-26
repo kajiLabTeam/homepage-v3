@@ -1,24 +1,13 @@
 ---
 import CardLayout from '@/layouts/CardLayout.astro';
+import { getPosts } from '@/utils/content';
 
 interface Props {
   class?: string;
 }
-
 const { class: className, ...props } = Astro.props;
 
-// TODO
-const news = [
-  { title: '研究室で今年度最後の旅行として京都に行ってきました', href: '/posts/[todo]/1' },
-  { title: '2024年度卒論・修論発表が無事に終わりました', href: '/posts/[todo]/1' },
-  { title: '卒論おつかれ様会を開催しました', href: '/posts/[todo]/1' },
-  { title: '今年も研究室でクリスマス会を行いました', href: '/posts/[todo]/1' },
-  {
-    title:
-      'U-22 プログラミング・コンテスト2024 で経済産業省商務情報政策局長賞＜テクノロジー＞と、さくらインターネット賞の2つの賞を受賞しました.',
-    href: '/posts/[todo]/1',
-  },
-];
+const news = await getPosts(0, 6);
 ---
 
 <CardLayout class={className} {...props} title="news">
@@ -26,7 +15,7 @@ const news = [
     {
       news.map((n) => (
         <li>
-          <a href={n.href}>{n.title}</a>
+          <a href={n.data.link}>{n.data.title}</a>
         </li>
       ))
     }
@@ -36,7 +25,7 @@ const news = [
 <style lang="scss">
   .news > li {
     padding-block: 5px;
-    margin-left: 10px;
+    margin-left: 20px;
 
     a {
       color: $color-text;

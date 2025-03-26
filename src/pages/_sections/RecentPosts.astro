@@ -1,47 +1,13 @@
 ---
+import { getPosts, getThumbnail } from '@/utils/content';
 import { Image } from 'astro:assets';
 
 interface Props {
   class?: string;
 }
-
 const { class: className, ...props } = Astro.props;
 
-// TODO
-const posts = [
-  {
-    title: '研究室で今年度最後の旅行として京都に行ってきました',
-    href: '/posts/[todo]/1',
-    thumbnail: 'https://placehold.jp/3d4070/ffffff/960x540.png?text=サムネ',
-  },
-  {
-    title: '2024年度卒論・修論発表が無事に終わりました',
-    href: '/posts/[todo]/1',
-    thumbnail: 'https://placehold.jp/3d4070/ffffff/960x540.png?text=サムネ',
-  },
-  {
-    title: '卒論おつかれ様会を開催しました',
-    href: '/posts/[todo]/1',
-    thumbnail: 'https://placehold.jp/3d4070/ffffff/960x540.png?text=サムネ',
-  },
-  {
-    title: '今年も研究室でクリスマス会を行いました',
-    href: '/posts/[todo]/1',
-    thumbnail: 'https://placehold.jp/3d4070/ffffff/960x540.png?text=サムネ',
-  },
-  {
-    title:
-      'U-22 プログラミング・コンテスト2024 で経済産業省商務情報政策局長賞＜テクノロジー＞と、さくらインターネット賞の2つの賞を受賞しました.',
-    href: '/posts/[todo]/1',
-    thumbnail: 'https://placehold.jp/3d4070/ffffff/960x540.png?text=サムネ',
-  },
-  {
-    title:
-      'U-22 プログラミング・コンテスト2024 で経済産業省商務情報政策局長賞＜テクノロジー＞と、さくらインターネット賞の2つの賞を受賞しました.',
-    href: '/posts/[todo]/1',
-    thumbnail: 'https://placehold.jp/3d4070/ffffff/960x540.png?text=サムネ',
-  },
-];
+const posts = await getPosts(0, 6);
 ---
 
 <div class:list={['posts', className]} {...props}>
@@ -49,9 +15,9 @@ const posts = [
 
   {
     posts.map((post) => (
-      <a class="post" href={post.href}>
-        <h3 class="post-title">{post.title}</h3>
-        <Image class="thumbnail" src={post.thumbnail} alt={post.title} width="480" height="270" />
+      <a class="post" href={post.data.link}>
+        <h3 class="post-title">{post.data.title}</h3>
+        <Image class="thumbnail" src={getThumbnail(post)} alt={post.data.title} width="480" height="270" />
       </a>
     ))
   }
@@ -71,9 +37,11 @@ const posts = [
 
     .post {
       width: 100%;
+      aspect-ratio: 16/9;
       position: relative;
       border-radius: 15px;
       overflow: hidden;
+      box-shadow: $shadow;
       cursor: pointer;
 
       .post-title {

@@ -7,6 +7,9 @@ export default defineConfig({
   integrations:[
     sitemap()
   ],
+  image: {
+    domains: ['img.esa.io'],
+  },
   vite: {
     css: {
       preprocessorOptions: {

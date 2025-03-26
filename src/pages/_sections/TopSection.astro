@@ -11,7 +11,7 @@ const { class: className, ...props } = Astro.props;
 ---
 
 <CardLayout class={className} {...props} noCardOnMobile>
-  <Image class="logo" src={kaji} alt="梶研ロゴ" width="120" height="120" />
+  <Image class="logo" src={kaji} alt="梶研ロゴ" width="120" height="120" densities={[2]} />
   <h2>KAJI LABORATORY</h2>
   <p>
     正式な研究室名は行動情報科学研究室です．行動をセンシングし，行動をデザインする研究室です．

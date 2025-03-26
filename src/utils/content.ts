@@ -12,6 +12,14 @@ export async function getPosts(offset: number = 0, limit: number | undefined = u
   return posts;
 }
 
+export async function getPage(pageName: string) {
+  const page = (await getCollection('pages'))
+    .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
+    .find((post) => post.data.tags?.page === pageName);
+
+  return page;
+}
+
 export function getThumbnail(post: CollectionEntry<'posts'>): string {
   const matches = post.body?.match(IMAGE_REGEX);
   return matches?.at(2) ?? matches?.at(3) ?? kaji.src;

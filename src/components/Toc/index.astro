@@ -1,0 +1,32 @@
+---
+import CardLayout from '@/layouts/CardLayout.astro';
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+  depth?: number;
+  class?: string;
+}
+const { headings, depth = 3, class: className, ...rest } = Astro.props;
+const filteredHeadings = headings.filter((heading) => heading.depth <= depth);
+---
+
+<CardLayout title="目次">
+  <nav class:list={['toc', className]} {...rest}>
+    <ul>
+      {
+        filteredHeadings.map((heading) => (
+          <li>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</CardLayout>
+
+<style lang="scss">
+  .toc {
+    padding-left: 20px;
+  }
+</style>

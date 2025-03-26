@@ -1,0 +1,59 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getPage } from '@/utils/content';
+import { render } from 'astro:content';
+import TopSection from './_sections/TopSection.astro';
+import Toc from '@/components/Toc/index.astro';
+import CardLayout from '@/layouts/CardLayout.astro';
+import mdStyle from '@/styles/md-style.scss';
+
+const page = await getPage('about');
+if (page === undefined) throw new Error('Page not found');
+
+const { Content, headings } = await render(page);
+---
+
+<Layout>
+  <main>
+    <div class="side">
+      <TopSection class="top-section" />
+      <Toc class="news-section" headings={headings} />
+    </div>
+
+    <CardLayout class="about">
+      <article>
+        <Content />
+      </article>
+    </CardLayout>
+  </main>
+</Layout>
+
+<style is:global set:html={mdStyle}></style>
+
+<style lang="scss">
+  main {
+    padding: 20px 24px 60px 20px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 30px;
+
+    .side {
+      grid-column: 1/4;
+      grid-row: span 3;
+
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+
+      @include mobile {
+        display: contents;
+      }
+    }
+
+    .about {
+      grid-column: 4/-1;
+
+      padding: 10px 20px 30px;
+    }
+  }
+</style>

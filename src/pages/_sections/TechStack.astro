@@ -64,15 +64,20 @@ const { class: className, ...props } = Astro.props;
 <script>
   const show = localStorage.getItem('showTechStack');
   const techstack = document.getElementById('techstack');
-  if (show && techstack) techstack.style.display = 'flex';
+  if (show && techstack) techstack.style.display = 'block';
 </script>
 
 <style lang="scss">
   .container {
     display: none;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
+
+    :global(.content) {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
 
     h2 {
       margin-top: 20px;

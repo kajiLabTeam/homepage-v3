@@ -13,9 +13,15 @@ export async function getPosts(offset: number = 0, limit: number | undefined = u
 }
 
 export async function getPage(pageName: string) {
+  const page = (await getPages()).find((post) => post.data.tags.page === pageName);
+
+  return page;
+}
+
+export async function getPages() {
   const page = (await getCollection('pages'))
-    .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
-    .find((post) => post.data.tags?.page === pageName);
+    .filter((page) => page.data.title !== 'README')
+    .sort((a, b) => a.data.tags.sort - b.data.tags.sort);
 
   return page;
 }

@@ -26,15 +26,13 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
       number: z.number(),
     })
     .transform(({ tags, ...esa }) => {
+      if (tags === undefined) throw new Error('tags is required');
       const { created_at, number, published, title } = esa;
-
-      const date: Date = tags?.date ?? created_at;
-      const link = `/post/${esa.number}`;
+      const date: Date = tags.date ?? created_at;
       return {
         number,
         published,
         title,
-        link,
         tags,
         createdAt: date,
       };
@@ -47,12 +45,13 @@ export const collections = {
     schema: _esaSchema({
       date: z.coerce.date().optional(),
       page: z.string().optional().default('other'),
-    }),
+      sort: z.coerce.number().optional().default(0),
+    }).transform(({ tags, ...esa }) => ({ ...esa,tags, link: `/${tags.page}` })),
   }),
   posts: defineCollection({
     loader: glob({ base: './contents/posts', pattern: '**/*.{md,mdx}' }),
     schema: _esaSchema({
       date: z.coerce.date().optional(),
-    }),
+    }).transform(({ number, ...esa }) => ({ ...esa, link: `/post/${number}` })),
   }),
 };

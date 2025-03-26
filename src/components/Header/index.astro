@@ -2,40 +2,40 @@
 import { Image } from 'astro:assets';
 import kaji from '@/assets/kaji.webp';
 import HamburgerMenu from './HamburgerMenu.astro';
+import { getPages } from '@/utils/content';
 
-// TODO
-const pages = [
-  { title: 'home', href: '/' },
-  { title: 'about', href: '/about' },
-  { title: 'member', href: '/member' },
-  { title: 'publication', href: '/publication' },
-  { title: 'award', href: '/award' },
-  { title: 'access', href: '/access' },
-  { title: 'post', href: '/post' },
-  { title: 'post', href: '/post' },
-  { title: 'post', href: '/post' },
-  { title: 'post', href: '/post' },
+export interface Path {
+  link: string;
+  page: string;
+}
+
+const paths: Path[] = [
+  { page: 'home', link: '/' },
+  ...(await getPages()).map(({ data }) => ({ link: data.link, page: data.tags.page })),
+  { page: 'posts', link: '/posts' },
 ];
 ---
 
 <header>
   <nav>
     <div class:list={['container', 'logo']}>
-      <Image src={kaji} alt="梶研ロゴ" height="40" width="40" densities={[2]} />
-      <h1 class="title">Kaji Lab</h1>
+      <a href="/">
+        <Image src={kaji} alt="梶研ロゴ" height="40" width="40" densities={[2]} />
+        <h1 class="title">Kaji Lab</h1>
+      </a>
     </div>
 
     <div class:list={['container', 'links']}>
       {
-        pages.map((page) => (
-          <a class="link" href={page.href}>
-            {page.title}
+        paths.map((path) => (
+          <a class="link" href={path.link}>
+            {path.page}
           </a>
         ))
       }
     </div>
 
-    <HamburgerMenu class="hamburger" pages={pages} />
+    <HamburgerMenu class="hamburger" paths={paths} />
   </nav>
 </header>
 
@@ -67,6 +67,11 @@ const pages = [
 
         &.logo {
           min-width: 150px;
+
+          a {
+            display: contents;
+            color: $color-text;
+          }
         }
 
         &.links {

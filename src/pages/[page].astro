@@ -1,13 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { render, type CollectionEntry } from 'astro:content';
 import TopSection from './_sections/TopSection.astro';
 import Toc from '@/components/Toc/index.astro';
 import CardLayout from '@/layouts/CardLayout.astro';
 import mdStyle from '@/styles/md-style.scss';
+import { getPages } from '@/utils/content';
 
 export async function getStaticPaths() {
-  const pages = await getCollection('pages');
+  const pages = await getPages();
 
   return pages.map((page) => ({
     params: { page: page.data.tags?.page },

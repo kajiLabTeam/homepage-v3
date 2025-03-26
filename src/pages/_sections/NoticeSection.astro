@@ -1,6 +1,6 @@
 ---
 import CardLayout from '@/layouts/CardLayout.astro';
-import mdStyle from '@/styles/md-style.scss?raw';
+import '@/styles/md-style.scss';
 
 interface Props {
   class?: string;
@@ -10,13 +10,11 @@ const { class: className, ...props } = Astro.props;
 ---
 
 <CardLayout class={className} {...props} title="お知らせ">
-  <article data-page="post">
+  <article data-page="top">
     <h3>研究室見学について</h3>
     <p>研究室見学を希望の方は下記のメールアドレスにて日程調整します．</p>
     <a href="mailto:kaji@aitech.ac.jp">kaji@aitech.ac.jp</a>
   </article>
 </CardLayout>
-
-<style is:global set:html={mdStyle}></style>
 
 <style lang="scss"></style>

@@ -1,5 +1,51 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import TopSection from './_sections/TopSection.astro';
+import NoticeSection from './_sections/NoticeSection.astro';
+import AboutSection from './_sections/AboutSection.astro';
+import NewsSection from './_sections/NewsSection.astro';
+import RecentPosts from './_sections/RecentPosts.astro';
 ---
 
-<Layout />
+<Layout>
+  <main>
+    <TopSection class="top-section" />
+    <NewsSection class="news-section" />
+
+    <NoticeSection class="notice-section" />
+    <AboutSection class="about-section" />
+    <AboutSection class="about-section" />
+    <RecentPosts class="posts-section" />
+  </main>
+</Layout>
+
+<style lang="scss">
+  main {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 30px;
+
+    .top-section {
+      grid-column: 1/4;
+      grid-row: 1/4;
+    }
+
+    .notice-section {
+      grid-column: span 9;
+      grid-row: span 2;
+    }
+
+    .about-section {
+      grid-column: span 9;
+      grid-row: span 2;
+    }
+
+    .news-section {
+      grid-column: 1/4;
+      grid-row: 4/7;
+    }
+    .posts-section {
+      grid-column: 4/-1;
+    }
+  }
+</style>

@@ -1,0 +1,18 @@
+---
+import CardLayout from '@/layouts/CardLayout.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<CardLayout class={className} {...props} title='お知らせ'>
+  <h3>研究室見学について</h3>
+  <p>研究室見学を希望の方は下記のメールアドレスにて日程調整します．</p>
+  <a href="mailto:kaji@aitech.ac.jp">kaji@aitech.ac.jp</a>
+</CardLayout>
+
+<style lang="scss">
+</style>

@@ -3,4 +3,5 @@ $footer-height: 50px;
 $main-height: calc(100vh - $header-height - $footer-height);
 
 $transition: 0.3s ease-in-out;
-$shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+$shadow-header: 0 2px 4px rgba(0, 0, 0, 0.2);
+$shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);

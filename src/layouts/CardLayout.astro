@@ -1,0 +1,43 @@
+---
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title, class: className, ...props } = Astro.props;
+---
+
+<div class:list={['card-layout', className]} {...props}>
+  {title && <h2 class="title">{title}</h2>}
+
+  <div class="content" data-has-title={title !== undefined}>
+    <slot />
+  </div>
+</div>
+
+<style lang="scss">
+  .card-layout {
+    padding: 15px;
+    box-shadow: $shadow;
+    border-radius: 15px;
+
+    .title {
+      position: relative;
+      text-transform: capitalize;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: $color-on-bg-light;
+      }
+    }
+
+    .content[data-has-title='true'] {
+      padding-top: 20px;
+    }
+  }
+</style>

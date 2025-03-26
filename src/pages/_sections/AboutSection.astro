@@ -1,0 +1,36 @@
+---
+import CardLayout from '@/layouts/CardLayout.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<CardLayout class={className} {...props} title="梶研はどんな研究しているの？">
+  <p>
+    TODO:MDのCSSはまとめてあとで変更する． 高度ICT社会における人とコンピュータの関わりを追求する研究室です．
+    特に力を入れているテーマとして「屋内位置推定と位置情報サービス」「インタラクションメディア」が挙げられます．
+    主な活動の場は情報処理学会のモバイルコンピューティング（MBL），ユビキタスコンピューティング（UBI），ヒューマンコンピュータインタラクション（HCI），音楽情報処理（MUS），コンシューマデバイス＆システム（CDS）などの研究会です．
+    梶研究室では現在以下の5つのプロジェクトに分かれて研究を進めています．
+  </p>
+
+  <ul>
+    <li>屋内位置推定プロジェクト（POS: Positioning）</li>
+    <li>位置情報サービス（LBS: Location Based Services）</li>
+    <li>モバイルコンテンツデザイン（MCD: Mobile Contents Design）</li>
+    <li>ヒューマンコンピュータインタラクション（HCI: Human Computer Interaction）</li>
+    <li>人工知能（AI: Artificial Intelligence）</li>
+  </ul>
+
+  <a class="detail" href="/about">詳しく見る</a>
+</CardLayout>
+
+<style lang="scss">
+  .detail {
+    padding-top: 10px;
+    display: block;
+    text-align: center;
+  }
+</style>

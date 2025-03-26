@@ -1,0 +1,181 @@
+---
+interface Props {
+  // TODO
+  pages: { title: string; href: string }[];
+  class?: string;
+}
+
+const { pages, class: className, ...rest } = Astro.props;
+---
+
+<div class:list={['hamburger-menu', className]} {...rest}>
+  <input type="checkbox" class="menu-check" id="hamburger" />
+
+  <label class="hamburger-icon" for="hamburger">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </label>
+
+  <div class="menu">
+    <label class="close" for="hamburger"></label>
+
+    <ul>
+      {
+        pages.map((page) => (
+          <li>
+            <a href={page.href}>{page.title}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <label class="menu-bg" for="hamburger"></label>
+</div>
+
+<style lang="scss">
+  .hamburger-menu {
+    height: 20px;
+    width: 30px;
+
+    .menu-check {
+      display: none;
+    }
+
+    .hamburger-icon {
+      height: 100%;
+      width: 100%;
+      display: block;
+      position: relative;
+      cursor: pointer;
+
+      & > .line {
+        height: 2px;
+        width: 100%;
+        background-color: $color-on-bg;
+        position: absolute;
+        transition: all 0.3s;
+      }
+
+      & > .line:nth-child(1) {
+        top: 0px;
+      }
+
+      & > .line:nth-child(2) {
+        top: 9px;
+      }
+
+      & > .line:nth-child(3) {
+        top: 18px;
+      }
+    }
+
+    .menu {
+      width: min(100vw, 300px);
+      background-color: $color-bg;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 1100;
+      transform: translateX(100%);
+      transition: all 0.3s;
+
+      .close {
+        height: 40px;
+        display: block;
+        position: relative;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+          content: '';
+          height: 2px;
+          width: 20px;
+          background-color: $color-on-bg;
+          position: absolute;
+          left: 10px;
+          top: 17px;
+        }
+
+        &::before {
+          rotate: 45deg;
+        }
+
+        &::after {
+          rotate: -45deg;
+        }
+      }
+
+      ul {
+        padding: 20px 0px 10px 20px;
+      }
+
+      li {
+        margin-left: 10px;
+        padding-block: 10px;
+        cursor: pointer;
+        list-style: none;
+
+        a {
+          padding-left: 0;
+          width: 100%;
+          text-decoration: none;
+          display: inline-block;
+          transition: all $transition;
+
+          &:hover {
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+
+    .menu-bg {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: rgba(0, 0, 0, 0);
+      pointer-events: none;
+      transition: all 0.3s;
+    }
+
+    &:has(.menu-check:checked) {
+      .hamburger-icon {
+        .line:nth-child(1) {
+          rotate: 45deg;
+          top: 9px;
+        }
+        .line:nth-child(2) {
+          opacity: 0;
+        }
+        .line:nth-child(3) {
+          rotate: -45deg;
+          top: 9px;
+        }
+      }
+
+      .menu {
+        transform: translateX(0%);
+      }
+
+      .menu-bg {
+        background-color: rgba(0, 0, 0, 0.5);
+        pointer-events: all;
+      }
+    }
+  }
+
+  @keyframes roll {
+    0% {
+      transform: rotateX(0deg);
+    }
+    100% {
+      transform: rotateX(540deg);
+    }
+  }
+</style>

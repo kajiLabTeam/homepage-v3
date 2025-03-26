@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import kaji from '@/assets/kaji.webp';
+import HamburgerMenu from './HamburgerMenu.astro';
 
 // TODO
 const pages = [
@@ -20,7 +21,7 @@ const pages = [
       <h1 class="title">Kaji Lab</h1>
     </div>
 
-    <div class="container">
+    <div class:list={['container', 'links']}>
       {
         pages.map((page) => (
           <a class="link" href={page.href}>
@@ -29,6 +30,8 @@ const pages = [
         ))
       }
     </div>
+
+    <HamburgerMenu class="hamburger" pages={pages} />
   </nav>
 </header>
 
@@ -49,7 +52,6 @@ const pages = [
       width: 100%;
       display: flex;
       align-items: center;
-      gap: 10px;
       justify-content: space-between;
 
       .container {
@@ -57,12 +59,26 @@ const pages = [
         align-items: center;
         gap: 10px;
 
+        @include mobile {
+          &.links {
+            display: none;
+          }
+        }
+
         .title {
           font-size: 1.2rem;
         }
 
         .link {
           text-transform: capitalize;
+        }
+      }
+
+      .hamburger {
+        display: none;
+
+        @include mobile {
+          display: block;
         }
       }
     }

@@ -22,14 +22,14 @@ const page = Astro.props;
 const { Content, headings } = await render(page);
 ---
 
-<Layout class="main">
+<Layout class="main" title={page.data.tags.page}>
   <div class="side">
     <TopSection class="top-section" />
     <Toc class="toc-section" headings={headings} />
   </div>
 
   <CardLayout class="content" title={page.data.title}>
-    <article data-page={page.data.tags?.page}>
+    <article data-page={page.data.tags.page}>
       <Content />
     </article>
   </CardLayout>

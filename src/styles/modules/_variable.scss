@@ -1,0 +1,7 @@
+$header-height: 50px;
+$footer-height: 40px;
+$main-padding-bottom: 50px;
+$main-height: calc(100vh - $header-height - $footer-height);
+
+$transition: 0.3s ease-in-out;
+$shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

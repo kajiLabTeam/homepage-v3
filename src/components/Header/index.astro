@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import kaji from '@/assets/kaji.webp';
+
+// TODO
+const pages = [
+  { title: 'home', href: '/' },
+  { title: 'about', href: '/about' },
+  { title: 'member', href: '/members' },
+  { title: 'publication', href: '/publications' },
+  { title: 'award', href: '/awards' },
+  { title: 'post', href: '/posts' },
+];
+---
+
+<header>
+  <nav>
+    <div class="container">
+      <Image src={kaji} alt="梶研ロゴ" height="40" width="40" densities={[2]} />
+      <h1 class="title">Kaji Lab</h1>
+    </div>
+
+    <div class="container">
+      {
+        pages.map((page) => (
+          <a class="link" href={page.href}>
+            {page.title}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+</header>
+
+<style lang="scss">
+  header {
+    padding: 0 10px;
+    height: $header-height;
+    background-color: $color-background;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: $shadow;
+
+    nav {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+
+      .container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .title {
+          font-size: 1.2rem;
+        }
+
+        .link {
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+</style>

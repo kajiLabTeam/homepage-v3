@@ -11,12 +11,12 @@ const { headings, depth = 3, class: className, ...rest } = Astro.props;
 const filteredHeadings = headings.filter((heading) => heading.depth <= depth);
 ---
 
-<CardLayout title="目次">
+<CardLayout title="目次" class="toc-card">
   <nav class:list={['toc', className]} {...rest}>
     <ul>
       {
         filteredHeadings.map((heading) => (
-          <li>
+          <li style={{ '--indent': `${heading.depth - 1}rem` }}>
             <a href={`#${heading.slug}`}>{heading.text}</a>
           </li>
         ))
@@ -26,7 +26,24 @@ const filteredHeadings = headings.filter((heading) => heading.depth <= depth);
 </CardLayout>
 
 <style lang="scss">
-  .toc {
-    padding-left: 20px;
+  .toc-card {
+    position: sticky;
+    top: $header-height + 20px;
+
+    .toc {
+      padding-left: 20px;
+
+      li {
+        margin-left: var(--indent);
+
+        a {
+          width: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          display: block;
+        }
+      }
+    }
   }
 </style>

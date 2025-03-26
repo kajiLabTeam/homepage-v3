@@ -38,6 +38,11 @@ import RecentPosts from './_sections/RecentPosts.astro';
       @include mobile {
         display: contents;
       }
+
+      .news-section {
+        position: sticky;
+        top: $header-height + 20px;
+      }
     }
 
     .notice-section {

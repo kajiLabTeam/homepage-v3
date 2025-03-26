@@ -13,6 +13,7 @@
     "lint:ci": "eslint ."
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.3.0",
     "astro": "^5.5.4",
     "sass": "^1.86.0",
     "sharp": "^0.33.5"

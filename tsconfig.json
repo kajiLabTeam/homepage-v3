@@ -1,8 +1,9 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
+  "include": [".astro/types.d.ts", "**/*", "node_modules/tsparticles/types"],
   "exclude": ["dist"],
   "compilerOptions": {
+    "types": ["tsparticles"],
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {

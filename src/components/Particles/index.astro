@@ -1,0 +1,290 @@
+---
+import Particles from 'astro-particles';
+import type { ISourceOptions } from 'tsparticles-engine';
+
+const particles = {
+  snow: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/snow.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 10,
+        },
+      },
+    },
+  },
+  leaf: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/leaf.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 3,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: -10,
+        },
+      },
+    },
+  },
+  momiji: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/momiji.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 10,
+        },
+      },
+    },
+  },
+  sakura: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/sakura.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 10,
+        },
+      },
+    },
+  },
+  rain: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/rain.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 5,
+        direction: 'bottom',
+        straight: false,
+        out_mode: 'out',
+        angle: {
+          value: 0,
+          offset: -10,
+        },
+      },
+      rotate: {
+        value: {
+          min: -10,
+          max: -10,
+        },
+      },
+    },
+  },
+  fireworks: {
+    preset: 'fireworks',
+    backgroundMask: {
+      enable: true,
+      composite: 'darken',
+      cover: '#fff',
+    },
+  },
+} as const satisfies Record<string, ISourceOptions>;
+
+const monthParticles: Record<number, ISourceOptions> = {
+  1: particles.snow,
+  2: particles.snow,
+  3: particles.sakura,
+  4: particles.sakura,
+  5: particles.leaf,
+  6: particles.rain,
+  7: particles.fireworks,
+  8: particles.fireworks,
+  9: particles.fireworks,
+  10: particles.momiji,
+  11: particles.momiji,
+  12: particles.snow,
+};
+
+const month = new Date().getMonth() + 1;
+---
+
+<script>
+  import { type Engine } from 'tsparticles-engine';
+  import { loadFull } from 'tsparticles';
+  import { loadFireworksPreset } from 'tsparticles-preset-fireworks';
+
+  declare global {
+    interface Window {
+      particlesInit: (engine: Engine) => Promise<void>;
+    }
+  }
+
+  window.particlesInit = async (engine: Engine) => {
+    await loadFireworksPreset(engine);
+    await loadFull(engine);
+  };
+</script>
+
+<Particles id="particle" class="particle" options={monthParticles[month]} init="particlesInit" />
+
+<style lang="scss" is:global>
+  [data-id='particle'] {
+    display: none;
+  }
+
+  #particle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+</style>

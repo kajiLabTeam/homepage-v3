@@ -24,6 +24,7 @@ const { title, createdAt, class: className, noCardOnMobile, ...props } = Astro.p
     padding: 15px;
     box-shadow: $shadow;
     border-radius: 15px;
+    background-color: $color-bg;
 
     @include mobile {
       &[data-no-card-on-mobile='true'] {

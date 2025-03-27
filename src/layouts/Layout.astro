@@ -1,7 +1,7 @@
 ---
 import Header from '@/components/Header/index.astro';
 import Footer from '@/components/Footer/index.astro';
-import Snow from '@/components/Snow/index.astro';
+import Particles from '@/components/Particles/index.astro';
 import {
   CATEGORY,
   DESCRIPTION,
@@ -51,11 +51,11 @@ const OGP_URL = new URL(OGP.src, Astro.url).toString();
   </head>
   <body>
     <Header />
-    <Snow />
     <main class={className} {...rest}>
       <slot />
     </main>
     <Footer />
+    <Particles />
   </body>
   <script>
     console.log(

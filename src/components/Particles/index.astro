@@ -1,0 +1,130 @@
+---
+import Particles from 'astro-particles';
+import { type IMoveAngle, type ISourceOptions } from 'tsparticles-engine';
+
+interface Particle {
+  src: string;
+  speed?: number;
+  randomMove?: boolean;
+  direction?:
+    | 'bottom'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'left'
+    | 'none'
+    | 'right'
+    | 'top'
+    | 'top-left'
+    | 'top-right'
+    | 'outside'
+    | 'inside';
+  density?: number;
+  straight?: boolean;
+  angle?: IMoveAngle;
+}
+
+const particles: Record<string, Particle> = {
+  snow: {
+    src: '/img/snow.png',
+    randomMove: true,
+  },
+  sakura: {
+    src: '/img/sakura.png',
+    randomMove: true,
+  },
+  rain: {
+    src: '/img/rain.png',
+    speed: 10,
+    straight: true,
+    direction: 'bottom',
+  },
+  momiji: {
+    src: '/img/momiji.png',
+  },
+};
+
+// 月毎のパーティクル設定
+const monthParticles: Record<number, Particle | undefined> = {
+  1: particles.snow,
+  2: particles.snow,
+  3: particles.sakura,
+  4: particles.sakura,
+  5: undefined,
+  6: particles.rain,
+  7: undefined,
+  8: undefined,
+  9: undefined,
+  10: particles.momiji,
+  11: particles.momiji,
+  12: particles.snow,
+};
+
+// 月の取得
+const month = new Date().getMonth() + 1;
+// パーティクルの設定
+const particle = particles['rain'] ?? monthParticles[month];
+const options: ISourceOptions = {
+  particles: {
+    number: {
+      value: 20,
+      density: {
+        enable: true,
+        value_area: particle.density ?? 100,
+      },
+    },
+    shape: {
+      type: 'image',
+      image: {
+        src: particle.src,
+        width: 120,
+        height: 120,
+      },
+    },
+    opacity: {
+      value: 0.5,
+      random: true,
+    },
+    size: {
+      value: 10,
+      random: true,
+    },
+    move: {
+      enable: true,
+      speed: particle.speed ?? 2,
+      direction: particle.direction ?? 'bottom',
+      random: particle.randomMove,
+      straight: particle.straight,
+      angle: particle.angle,
+      out_mode: 'out',
+    },
+  },
+};
+---
+
+<script>
+  import { type Engine } from 'tsparticles-engine';
+  import { loadFull } from 'tsparticles';
+
+  declare global {
+    interface Window {
+      particlesInit: (engine: Engine) => Promise<void>;
+    }
+  }
+
+  window.particlesInit = async (engine: Engine) => {
+    await loadFull(engine);
+  };
+</script>
+
+<Particles id="particle" class="particle" options={options} init="particlesInit" />
+
+<style lang="scss" is:global>
+  #particle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+</style>

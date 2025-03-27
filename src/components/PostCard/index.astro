@@ -9,55 +9,79 @@ interface Props {
 const { post } = Astro.props;
 ---
 
-<a class="post" href={post.data.link} ontouchstart="">
-  <div class="container">
-    <h3 class="post-title">{post.data.title}</h3>
-    <h3 class="crated-at">{post.data.createdAtStr}</h3>
+<div class="post-wrapper">
+  <a class="post" href={post.data.link} ontouchstart="">
+    <div class="container">
+      <h3 class="post-title">{post.data.title}</h3>
+      <h3 class="crated-at">{post.data.createdAtStr}</h3>
+    </div>
+    <Image class="thumbnail" src={getThumbnail(post)} alt={post.data.title} width="480" height="270" />
+  </a>
+
+  <div class="post-info">
+    <p class="title">{post.data.title}</p>
+    <p class="created-at">{post.data.createdAtStr}</p>
   </div>
-  <Image class="thumbnail" src={getThumbnail(post)} alt={post.data.title} width="480" height="270" />
-</a>
+</div>
 
 <style lang="scss">
-  .post {
-    width: 100%;
-    aspect-ratio: 16/9;
-    position: relative;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: $shadow;
-    cursor: pointer;
-
-    .container {
-      margin: auto;
-      padding: 20px;
-      width: fit-content;
-      height: fit-content;
-      text-align: center;
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      opacity: 0;
-      transition: opacity $transition;
-
-      .post-title {
-        color: $color-text;
-      }
-    }
-
-    .thumbnail {
+  .post-wrapper {
+    .post {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: filter $transition;
-    }
+      aspect-ratio: 16/9;
+      position: relative;
+      border-radius: 15px;
+      display: block;
+      overflow: hidden;
+      box-shadow: $shadow;
+      cursor: pointer;
 
-    &:hover {
       .container {
-        opacity: 1;
+        margin: auto;
+        padding: 20px;
+        width: fit-content;
+        height: fit-content;
+        text-align: center;
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity $transition;
+
+        .post-title {
+          color: $color-text;
+        }
       }
 
       .thumbnail {
-        filter: blur(5px) opacity(0.3);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: filter $transition;
+      }
+
+      &:hover {
+        .container {
+          opacity: 1;
+        }
+
+        .thumbnail {
+          filter: blur(5px) opacity(0.3);
+        }
+      }
+    }
+
+    .post-info {
+      padding: 5px;
+      text-align: center;
+      height: fit-content;
+
+      .title {
+        font-weight: bold;
+      }
+
+      .created-at {
+        text-align: right;
       }
     }
   }

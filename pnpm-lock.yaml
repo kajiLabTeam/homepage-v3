@@ -29,6 +29,9 @@ importers:
       tsparticles-engine:
         specifier: 2.10.1
         version: 2.10.1
+      tsparticles-preset-fireworks:
+        specifier: 2.10.1
+        version: 2.10.1
     devDependencies:
       '@eslint/js':
         specifier: ^9.23.0
@@ -1816,6 +1819,14 @@ packages:
     resolution: {integrity: sha512-fbskYnaXWXivBh9KFReVCfqHdhbNQSK2T+fq2qcGEWpwtDdgujcaS1k2Q/xjZnWNMfVesik4IrqspcL51gNdSA==}
     deprecated: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
 
+  tsparticles-plugin-sounds@2.12.0:
+    resolution: {integrity: sha512-Jm/Mdddq9E9VdHtAbYmv3pgtHQ3nBSbXN+n2axqm6vACgrE/JA4tgLZyuknns0scxibvqh/7zFxkOSa+4ucYuQ==}
+    deprecated: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+
+  tsparticles-preset-fireworks@2.10.1:
+    resolution: {integrity: sha512-ENSqjJU4JfznXo1kK5XGS48vbya/pkxB/RrauMT+YXkIRrqpz4+HrQ0XtwgQl8KQVYrteUfS8pcJLXewgnHxNQ==}
+    deprecated: '@tsparticles/preset-fireworks is the new package, please use that'
+
   tsparticles-shape-circle@2.12.0:
     resolution: {integrity: sha512-L6OngbAlbadG7b783x16ns3+SZ7i0SSB66M8xGa5/k+YcY7zm8zG0uPt1Hd+xQDR2aNA3RngVM10O23/Lwk65Q==}
     deprecated: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
@@ -1847,6 +1858,10 @@ packages:
   tsparticles-slim@2.12.0:
     resolution: {integrity: sha512-27w9aGAAAPKHvP4LHzWFpyqu7wKyulayyaZ/L6Tuuejy4KP4BBEB4rY5GG91yvAPsLtr6rwWAn3yS+uxnBDpkA==}
     deprecated: starting from tsparticles v3 the packages are now moved to @tsparticles/package-name instead of tsparticles-package-name
+
+  tsparticles-updater-angle@2.9.3:
+    resolution: {integrity: sha512-Z8VLOw2UUxrvV3YH44My5kmeBUcJUHTSCMRUIqFvgvxDs0Q/g2eVWkr1L+Crpw6PE5FJMdDGWRjWwxMwNdVfuQ==}
+    deprecated: replaced by tsparticles-updater-rotate
 
   tsparticles-updater-color@2.12.0:
     resolution: {integrity: sha512-KcG3a8zd0f8CTiOrylXGChBrjhKcchvDJjx9sp5qpwQK61JlNojNCU35xoaSk2eEHeOvFjh0o3CXWUmYPUcBTQ==}
@@ -4163,6 +4178,27 @@ snapshots:
     dependencies:
       tsparticles-engine: 2.12.0
 
+  tsparticles-plugin-sounds@2.12.0:
+    dependencies:
+      tsparticles-engine: 2.12.0
+
+  tsparticles-preset-fireworks@2.10.1:
+    dependencies:
+      tsparticles-engine: 2.10.1
+      tsparticles-move-base: 2.12.0
+      tsparticles-plugin-emitters: 2.12.0
+      tsparticles-plugin-sounds: 2.12.0
+      tsparticles-shape-circle: 2.12.0
+      tsparticles-shape-line: 2.12.0
+      tsparticles-updater-angle: 2.9.3
+      tsparticles-updater-color: 2.12.0
+      tsparticles-updater-destroy: 2.12.0
+      tsparticles-updater-life: 2.12.0
+      tsparticles-updater-opacity: 2.12.0
+      tsparticles-updater-out-modes: 2.12.0
+      tsparticles-updater-size: 2.12.0
+      tsparticles-updater-stroke-color: 2.12.0
+
   tsparticles-shape-circle@2.12.0:
     dependencies:
       tsparticles-engine: 2.12.0
@@ -4226,6 +4262,10 @@ snapshots:
       tsparticles-updater-rotate: 2.12.0
       tsparticles-updater-size: 2.12.0
       tsparticles-updater-stroke-color: 2.12.0
+
+  tsparticles-updater-angle@2.9.3:
+    dependencies:
+      tsparticles-engine: 2.10.1
 
   tsparticles-updater-color@2.12.0:
     dependencies:

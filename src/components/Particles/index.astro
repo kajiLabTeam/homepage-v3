@@ -1,109 +1,264 @@
 ---
 import Particles from 'astro-particles';
-import { type IMoveAngle, type ISourceOptions } from 'tsparticles-engine';
+import type { ISourceOptions } from 'tsparticles-engine';
 
-interface Particle {
-  src: string;
-  speed?: number;
-  randomMove?: boolean;
-  direction?:
-    | 'bottom'
-    | 'bottom-left'
-    | 'bottom-right'
-    | 'left'
-    | 'none'
-    | 'right'
-    | 'top'
-    | 'top-left'
-    | 'top-right'
-    | 'outside'
-    | 'inside';
-  density?: number;
-  straight?: boolean;
-  angle?: IMoveAngle;
-}
-
-const particles: Record<string, Particle> = {
+const particles = {
   snow: {
-    src: '/img/snow.png',
-    randomMove: true,
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/snow.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 10,
+        },
+      },
+    },
   },
-  sakura: {
-    src: '/img/sakura.png',
-    randomMove: true,
-  },
-  rain: {
-    src: '/img/rain.png',
-    speed: 10,
-    straight: true,
-    direction: 'bottom',
+  leaf: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/leaf.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 3,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: -10,
+        },
+      },
+    },
   },
   momiji: {
-    src: '/img/momiji.png',
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/momiji.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 10,
+        },
+      },
+    },
   },
-};
+  sakura: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/sakura.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 10,
+        },
+      },
+    },
+  },
+  rain: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 100,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/rain.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 10,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 5,
+        direction: 'bottom',
+        straight: false,
+        out_mode: 'out',
+        angle: {
+          value: 0,
+          offset: -10,
+        },
+      },
+      rotate: {
+        value: {
+          min: -10,
+          max: -10,
+        },
+      },
+    },
+  },
+  fireworks: {
+    preset: 'fireworks',
+    backgroundMask: {
+      enable: true,
+      composite: 'darken',
+      cover: '#fff',
+    },
+  },
+} as const satisfies Record<string, ISourceOptions>;
 
-// 月毎のパーティクル設定
-const monthParticles: Record<number, Particle | undefined> = {
+const monthParticles: Record<number, ISourceOptions> = {
   1: particles.snow,
   2: particles.snow,
   3: particles.sakura,
   4: particles.sakura,
-  5: undefined,
+  5: particles.leaf,
   6: particles.rain,
-  7: undefined,
-  8: undefined,
-  9: undefined,
+  7: particles.fireworks,
+  8: particles.fireworks,
+  9: particles.fireworks,
   10: particles.momiji,
   11: particles.momiji,
   12: particles.snow,
 };
 
-// 月の取得
 const month = new Date().getMonth() + 1;
-// パーティクルの設定
-const particle = particles['rain'] ?? monthParticles[month];
-const options: ISourceOptions = {
-  particles: {
-    number: {
-      value: 20,
-      density: {
-        enable: true,
-        value_area: particle.density ?? 100,
-      },
-    },
-    shape: {
-      type: 'image',
-      image: {
-        src: particle.src,
-        width: 120,
-        height: 120,
-      },
-    },
-    opacity: {
-      value: 0.5,
-      random: true,
-    },
-    size: {
-      value: 10,
-      random: true,
-    },
-    move: {
-      enable: true,
-      speed: particle.speed ?? 2,
-      direction: particle.direction ?? 'bottom',
-      random: particle.randomMove,
-      straight: particle.straight,
-      angle: particle.angle,
-      out_mode: 'out',
-    },
-  },
-};
 ---
 
 <script>
   import { type Engine } from 'tsparticles-engine';
   import { loadFull } from 'tsparticles';
+  import { loadFireworksPreset } from 'tsparticles-preset-fireworks';
 
   declare global {
     interface Window {
@@ -112,13 +267,18 @@ const options: ISourceOptions = {
   }
 
   window.particlesInit = async (engine: Engine) => {
+    await loadFireworksPreset(engine);
     await loadFull(engine);
   };
 </script>
 
-<Particles id="particle" class="particle" options={options} init="particlesInit" />
+<Particles id="particle" class="particle" options={monthParticles[month]} init="particlesInit" />
 
 <style lang="scss" is:global>
+  [data-id='particle'] {
+    display: none;
+  }
+
   #particle {
     position: fixed;
     top: 0;

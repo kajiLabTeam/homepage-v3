@@ -62,7 +62,7 @@ const { class: className, ...props } = Astro.props;
 </CardLayout>
 
 <script>
-  const show = localStorage.getItem('showTechStack');
+  const show = localStorage.getItem('tech');
   const techstack = document.getElementById('techstack');
   if (show && techstack) techstack.style.display = 'block';
 </script>
@@ -88,6 +88,7 @@ const { class: className, ...props } = Astro.props;
       padding-inline: 10px;
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
 

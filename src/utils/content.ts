@@ -37,7 +37,7 @@ export async function getPage(pageName: string) {
 export async function getPages() {
   const page = (await getCollection('pages'))
     .filter((page) => !page.data.deleted && page.data.title !== 'README')
-    .sort((a, b) => b.data.tags.sort - a.data.tags.sort);
+    .sort((a, b) => a.data.tags.sort - b.data.tags.sort);
 
   return page;
 }

@@ -1,5 +1,4 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import kaji from '@/assets/kaji.webp';
 
 const IMAGE_REGEX = /[\s\n]*(<img.*?src=['"](.*)['"].*>|!\[.*\]\((.*)\))/;
 
@@ -15,7 +14,7 @@ function _isKeywordMatch(post: CollectionEntry<'posts'>, keyword: string | undef
 export async function getPosts({ offset = 0, limit, keyword }: GetPostsArgs = {}) {
   const posts = (await getCollection('posts'))
     .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
-    .filter((post) => post.data.title !== 'README' && _isKeywordMatch(post, keyword))
+    .filter((post) => !post.data.deleted && post.data.title !== 'README' && _isKeywordMatch(post, keyword))
     .slice(offset, limit && offset + limit);
 
   return posts;
@@ -37,7 +36,7 @@ export async function getPage(pageName: string) {
 
 export async function getPages() {
   const page = (await getCollection('pages'))
-    .filter((page) => page.data.title !== 'README')
+    .filter((page) => !page.data.deleted && page.data.title !== 'README')
     .sort((a, b) => a.data.tags.sort - b.data.tags.sort);
 
   return page;
@@ -45,5 +44,5 @@ export async function getPages() {
 
 export function getThumbnail(post: CollectionEntry<'posts'>): string {
   const matches = post.body?.match(IMAGE_REGEX);
-  return matches?.at(2) ?? matches?.at(3) ?? kaji.src;
+  return matches?.at(2) ?? matches?.at(3) ?? '/img/kaji.webp';
 }

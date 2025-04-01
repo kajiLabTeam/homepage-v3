@@ -15,6 +15,7 @@ const { post } = Astro.props;
       <h3 class="post-title">{post.data.title}</h3>
       <h3 class="crated-at">{post.data.createdAtStr}</h3>
     </div>
+
     <Image class="thumbnail" src={getThumbnail(post)} alt={post.data.title} width="480" height="270" />
   </a>
 

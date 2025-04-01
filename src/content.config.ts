@@ -49,6 +49,7 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
       const day = date.getDate();
+      const deleted = [..._other].includes('deleted');
 
       return {
         number,
@@ -57,7 +58,8 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
         tags: t,
         createdAt: date,
         createdAtStr: `${year}年${month}月${day}日`,
-        keywords: _other,
+        keywords: [..._other].filter((tag) => tag !== 'deleted'),
+        deleted,
       };
     });
 }

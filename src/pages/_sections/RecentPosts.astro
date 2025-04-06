@@ -13,6 +13,8 @@ const posts = await getPosts({ limit: 6 });
 <div class:list={['posts', className]} {...props}>
   <h2 class="title">最近の投稿</h2>
   {posts.map((post) => <PostCard post={post} />)}
+
+  <a href="/posts/" class="more">投稿をもっと見る</a>
 </div>
 
 <style lang="scss">
@@ -25,6 +27,13 @@ const posts = await getPosts({ limit: 6 });
       padding-block: 20px 10px;
       grid-column: 1/-1;
       text-align: center;
+    }
+
+    .more {
+      grid-column: 1/-1;
+      text-align: center;
+      background-color: $color-bg;
+      font-weight: bold;
     }
   }
 </style>

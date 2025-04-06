@@ -82,6 +82,7 @@ function link(category: string, page: number = 1) {
     .keywords {
       padding: 10px 0 20px;
       display: flex;
+      flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
 
@@ -91,6 +92,9 @@ function link(category: string, page: number = 1) {
         border: solid 1px $color-primary;
         border-radius: 5px;
         text-transform: capitalize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &[data-active='true'] {
           color: $color-bg;

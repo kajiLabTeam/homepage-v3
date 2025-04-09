@@ -24,7 +24,7 @@ const OGP_URL = new URL(OGP.src, Astro.url).toString();
 ---
 
 <!doctype html>
-<!-- LocalStorage の `tech` に `show` を設定しリロードすると、トップページに技術スタックが追加されます👀 -->
+<!-- コンソールで `showTech()` を実行すると、トップページに技術スタックが追加されます👀 -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -58,9 +58,7 @@ const OGP_URL = new URL(OGP.src, Astro.url).toString();
     <Particles />
   </body>
   <script>
-    console.log(
-      'LocalStorage の `tech` に `show` を設定しリロードすると、トップページに技術スタックが追加されます👀',
-    );
+    console.log('コンソールで `showTech()` を実行すると、トップページに技術スタックが追加されます👀');
   </script>
 </html>
 

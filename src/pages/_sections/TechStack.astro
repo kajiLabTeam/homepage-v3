@@ -24,7 +24,7 @@ interface Props {
 const { class: className, ...props } = Astro.props;
 ---
 
-<CardLayout id="techstack" class:list={[className, 'container']} title="技術スタック" {...props}>
+<CardLayout id="techstack" class:list={[className, 'container']} title="技術スタック" {...props} id="techstack">
   <h2>データサイエンス</h2>
   <div class="icons">
     <Python />
@@ -62,11 +62,19 @@ const { class: className, ...props } = Astro.props;
 </CardLayout>
 
 <script>
-  const show = localStorage.getItem('tech') === 'show';
-  const techstack = document.getElementById('techstack');
-  console.log({ show, techstack });
-  if (show && techstack) techstack.style.display = 'block';
-  else localStorage.setItem('tech', '');
+  declare global {
+    interface Window {
+      showTech: Function;
+    }
+  }
+
+  window.showTech = () => {
+    const techstack = document.getElementById('techstack');
+    if (techstack) techstack.style.display = 'block';
+
+    console.log('技術スタックを表示します');
+    return techstack;
+  };
 </script>
 
 <style lang="scss">

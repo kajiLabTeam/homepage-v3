@@ -61,20 +61,19 @@ const { class: className, ...props } = Astro.props;
   </div>
 </CardLayout>
 
-<script is:inline>
-  window.addEventListener('storage', changeTechStack);
-  window.addEventListener('load', changeTechStack);
-
+<script is:inline defer>
   function changeTechStack() {
     const techstack = document.getElementById('techstack');
-    const show = localStorage.getItem('tech') === 'true';
-    console.log(techstack, show);
+    const show = localStorage.getItem('tech') === 'show';
 
     if (!techstack) return;
 
     if (show && techstack) techstack.style.display = 'block';
     else techstack.style.display = 'none';
   }
+
+  window.addEventListener('storage', changeTechStack);
+  window.addEventListener('load', changeTechStack);
 </script>
 
 <style lang="scss">

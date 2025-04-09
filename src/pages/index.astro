@@ -7,9 +7,6 @@ import NewsSection from './_sections/NewsSection.astro';
 import RecentPosts from './_sections/RecentPosts.astro';
 import TechStackSection from './_sections/TechStack.astro';
 import OthersSection from './_sections/OthersSection.astro';
-import { getSections } from '@/utils/content';
-
-const sections = await getSections();
 ---
 
 <Layout class="main">
@@ -25,7 +22,7 @@ const sections = await getSections();
   <RecentPosts class="posts-section" />
 </Layout>
 
-<style lang="scss" define:vars={{ sections: sections.length }}>
+<style lang="scss">
   .main {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -33,7 +30,7 @@ const sections = await getSections();
 
     .side {
       grid-column: 1/4;
-      grid-row: span calc(var(--sections) - 1);
+      grid-row: span 4;
 
       display: flex;
       flex-direction: column;

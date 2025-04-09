@@ -42,6 +42,21 @@ export async function getPages() {
   return page;
 }
 
+export async function getSections(name?: string) {
+  const sections = (await getCollection('sections'))
+    .filter((section) => !section.data.deleted && section.data.title !== 'README')
+    .sort((a, b) => b.data.tags.sort - a.data.tags.sort);
+
+  if (name === undefined) return sections;
+
+  return sections.filter((section) => section.data.tags.section === name);
+}
+
+export async function getSection(name: string) {
+  const sections = await getSections(name);
+  return sections.at(0);
+}
+
 export function getThumbnail(post: CollectionEntry<'posts'>): string {
   const matches = post.body?.match(IMAGE_REGEX);
   return matches?.at(2) ?? matches?.at(3) ?? '/img/kaji.webp';

@@ -6,6 +6,10 @@ import AboutSection from './_sections/AboutSection.astro';
 import NewsSection from './_sections/NewsSection.astro';
 import RecentPosts from './_sections/RecentPosts.astro';
 import TechStackSection from './_sections/TechStack.astro';
+import OthersSection from './_sections/OthersSection.astro';
+import { getSections } from '@/utils/content';
+
+const sections = await getSections();
 ---
 
 <Layout class="main">
@@ -17,10 +21,11 @@ import TechStackSection from './_sections/TechStack.astro';
   <NoticeSection class="notice-section" />
   <TechStackSection class="techstack-section" />
   <AboutSection class="about-section" />
+  <OthersSection class="others-section" />
   <RecentPosts class="posts-section" />
 </Layout>
 
-<style lang="scss">
+<style lang="scss" define:vars={{ sections: sections.length }}>
   .main {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -28,7 +33,7 @@ import TechStackSection from './_sections/TechStack.astro';
 
     .side {
       grid-column: 1/4;
-      grid-row: span 3;
+      grid-row: span calc(var(--sections) - 1);
 
       display: flex;
       flex-direction: column;
@@ -85,6 +90,12 @@ import TechStackSection from './_sections/TechStack.astro';
       @include mobile {
         grid-column: 1/-1;
       }
+    }
+
+    .others-section {
+      display: grid;
+      grid-column: span 9;
+      gap: 30px;
     }
 
     .posts-section {

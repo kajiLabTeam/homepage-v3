@@ -65,6 +65,14 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
 }
 
 export const collections = {
+  sections: defineCollection({
+    loader: glob({ base: './contents/sections', pattern: '**/*.{md,mdx}' }),
+    schema: _esaSchema({
+      date: z.coerce.date().optional(),
+      section: z.string().optional().default('other'),
+      sort: z.coerce.number().optional().default(0),
+    }),
+  }),
   pages: defineCollection({
     loader: glob({ base: './contents/pages', pattern: '**/*.{md,mdx}' }),
     schema: _esaSchema({

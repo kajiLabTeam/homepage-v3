@@ -1,19 +1,25 @@
 ---
 import CardLayout from '@/layouts/CardLayout.astro';
 import '@/styles/md-style.scss';
+import { getSection } from '@/utils/content';
+import { render } from 'astro:content';
+
+const section = await getSection('notice');
 
 interface Props {
   class?: string;
 }
 
+if (!section) throw new Error('Section not found');
+
 const { class: className, ...props } = Astro.props;
+
+const { Content } = await render(section);
 ---
 
 <CardLayout class={className} {...props} title="お知らせ">
   <article data-page="top">
-    <h3>研究室見学について</h3>
-    <p>研究室見学を希望の方は下記のメールアドレスにて日程調整します．</p>
-    <a href="mailto:kaji@aitech.ac.jp">kaji@aitech.ac.jp</a>
+    <Content />
   </article>
 </CardLayout>
 

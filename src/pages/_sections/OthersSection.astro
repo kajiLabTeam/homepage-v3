@@ -1,0 +1,39 @@
+---
+import CardLayout from '@/layouts/CardLayout.astro';
+import '@/styles/md-style.scss';
+import { getSections } from '@/utils/content';
+import { render } from 'astro:content';
+
+const sections = await getSections('others');
+
+// if (sections.length === 0) throw new Error('Sections not found');
+
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<section class={className} {...props}>
+  {
+    sections.map(async (section) => {
+      const { Content } = await render(section);
+      return (
+        <CardLayout class={className} {...props} title={section.data.title} noCardOnMobile>
+          <article data-page="post">
+            <Content {...props} class={className} />
+          </article>
+        </CardLayout>
+      );
+    })
+  }
+</section>
+
+<style lang="scss">
+  .detail {
+    padding-top: 10px;
+    display: block;
+    text-align: center;
+  }
+</style>

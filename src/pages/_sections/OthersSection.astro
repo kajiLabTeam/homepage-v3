@@ -18,7 +18,7 @@ const { class: className, ...props } = Astro.props;
     sections.map(async (section) => {
       const { Content } = await render(section);
       return (
-        <CardLayout class={className} {...props} title={section.data.title} noCardOnMobile>
+        <CardLayout {...props} title={section.data.title} noCardOnMobile>
           <article data-page="post">
             <Content {...props} class={className} />
           </article>
@@ -27,11 +27,3 @@ const { class: className, ...props } = Astro.props;
     })
   }
 </section>
-
-<style lang="scss">
-  .detail {
-    padding-top: 10px;
-    display: block;
-    text-align: center;
-  }
-</style>

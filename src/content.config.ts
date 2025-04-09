@@ -68,7 +68,6 @@ export const collections = {
   sections: defineCollection({
     loader: glob({ base: './contents/sections', pattern: '**/*.{md,mdx}' }),
     schema: _esaSchema({
-      date: z.coerce.date().optional(),
       section: z.string().optional().default('other'),
       sort: z.coerce.number().optional().default(0),
     }),

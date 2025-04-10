@@ -1,7 +1,7 @@
 ---
 import Header from '@/components/Header/index.astro';
 import Footer from '@/components/Footer/index.astro';
-import Particles from '@/components/Particles/index.astro';
+import Particles, { type ParticleType } from '@/components/Particles/index.astro';
 import {
   CATEGORY,
   DESCRIPTION,
@@ -18,14 +18,15 @@ interface Props {
   description?: string;
   ogp?: string;
   class?: string;
+  particle?: ParticleType;
 }
-const { title, description, ogp, class: className, ...rest } = Astro.props;
+const { title, description, ogp, class: className, particle, ...rest } = Astro.props;
 const OGP_URL = new URL(OGP.src, Astro.url).toString();
 ---
 
 <!doctype html>
 <!-- コンソールで `showTech()` を実行すると、トップページに技術スタックが追加されます👀 -->
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -55,7 +56,7 @@ const OGP_URL = new URL(OGP.src, Astro.url).toString();
       <slot />
     </main>
     <Footer />
-    <Particles />
+    <Particles particle={particle} />
   </body>
   <script>
     console.log('コンソールで `showTech()` を実行すると、トップページに技術スタックが追加されます👀');

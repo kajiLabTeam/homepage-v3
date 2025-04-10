@@ -1,0 +1,33 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout class="main" title="404 Not Found">
+  <div>
+    <div>
+      <h1>404 Not Found</h1>
+      <p>ページが見つかりませんでした</p>
+    </div>
+
+    <div>
+      <a href="/">トップへ</a>
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    div {
+      padding: 10px;
+
+      a {
+        padding: 10px;
+      }
+    }
+  }
+</style>

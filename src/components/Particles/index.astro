@@ -2,6 +2,11 @@
 import Particles from 'astro-particles';
 import type { ISourceOptions } from 'tsparticles-engine';
 
+interface Props {
+  particle?: ParticleType;
+}
+const { particle } = Astro.props;
+
 const particles = {
   snow: {
     particles: {
@@ -235,7 +240,53 @@ const particles = {
       cover: '#fff',
     },
   },
+  teapot: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 1000,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/teapot.png',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 40,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 10,
+        },
+      },
+    },
+  },
 } as const satisfies Record<string, ISourceOptions>;
+export type ParticleType = keyof typeof particles;
 
 const monthParticles: Record<number, ISourceOptions> = {
   1: particles.snow,
@@ -251,8 +302,9 @@ const monthParticles: Record<number, ISourceOptions> = {
   11: particles.momiji,
   12: particles.snow,
 };
-
 const month = new Date().getMonth() + 1;
+
+const selectedParticle = particle ? particles[particle] : monthParticles[month];
 ---
 
 <script>
@@ -272,7 +324,7 @@ const month = new Date().getMonth() + 1;
   };
 </script>
 
-<Particles id="particle" class="particle" options={monthParticles[month]} init="particlesInit" />
+<Particles id="particle" class="particle" options={selectedParticle} init="particlesInit" />
 
 <style lang="scss" is:global>
   [data-id='particle'] {

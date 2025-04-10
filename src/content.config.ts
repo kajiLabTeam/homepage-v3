@@ -87,7 +87,7 @@ export const collections = {
     loader: glob({ base: './contents/posts', pattern: '**/*.{md,mdx}' }),
     schema: _esaSchema({
       date: z.coerce.date().optional(),
-      id: z.number().optional(),
+      id: z.coerce.number().optional(),
     }).transform(({ _createdAt, ...esa }) => {
       const formattedDate = formatDate(esa.createdAt);
 

@@ -1,5 +1,6 @@
 import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
+import { formatDate } from './utils/dayjs';
 
 function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
   return z
@@ -84,6 +85,6 @@ export const collections = {
     loader: glob({ base: './contents/posts', pattern: '**/*.{md,mdx}' }),
     schema: _esaSchema({
       date: z.coerce.date().optional(),
-    }).transform(({ number, ...esa }) => ({ ...esa, number, link: `/post/${number}` })),
+    }).transform((esa) => ({ ...esa, link: `/post/${formatDate(esa.createdAt)}`, pageId: formatDate(esa.createdAt) })),
   }),
 };

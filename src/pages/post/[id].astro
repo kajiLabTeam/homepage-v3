@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   const posts = await getPosts();
 
   return posts.map((post) => ({
-    params: { id: post.data.number },
+    params: { id: post.data.pageId },
     props: post,
   }));
 }

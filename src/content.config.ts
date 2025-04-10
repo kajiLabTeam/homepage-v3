@@ -1,6 +1,7 @@
 import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 import { formatDate } from './utils/dayjs';
+import dayjs from 'dayjs';
 
 function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
   return z
@@ -61,6 +62,7 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
         createdAtStr: `${year}年${month}月${day}日`,
         keywords: [..._other].filter((tag) => tag !== 'deleted'),
         deleted,
+        _createdAt: created_at,
       };
     });
 }
@@ -85,6 +87,20 @@ export const collections = {
     loader: glob({ base: './contents/posts', pattern: '**/*.{md,mdx}' }),
     schema: _esaSchema({
       date: z.coerce.date().optional(),
-    }).transform((esa) => ({ ...esa, link: `/post/${formatDate(esa.createdAt)}`, pageId: formatDate(esa.createdAt) })),
+      id: z.number().optional(),
+    }).transform(({ _createdAt, ...esa }) => {
+      const formattedDate = formatDate(esa.createdAt);
+
+      let suffix = `_${esa.number}`; // 重複を避けるために付与
+
+      // 旧版の HUGO に合わせて suffix を付与可能にする
+      if (dayjs(_createdAt).isBefore('2025-04-06')) {
+        if (esa.tags.id !== undefined) suffix = `_${esa.tags.id}`;
+        else suffix = '';
+      }
+
+      const pageId = `${formattedDate}${suffix}`;
+      return { ...esa, link: `/post/${pageId}`, pageId };
+    }),
   }),
 };

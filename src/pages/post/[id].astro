@@ -4,7 +4,6 @@ import Layout from '@/layouts/Layout.astro';
 import { getPosts, getThumbnail } from '@/utils/content';
 import { render } from 'astro:content';
 import '@/styles/md-style.scss';
-import Thumbnail from '@/components/Thumbnail/index.astro';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -21,8 +20,6 @@ const { Content } = await render(post);
 
 <Layout class="main" title={post.data.title} ogp={getThumbnail(post)}>
   <CardLayout class="card" title={post.data.title} createdAt={post.data.createdAtStr}>
-    <Thumbnail src={getThumbnail(post)} alt={post.data.title} width={480} height={270} />
-
     <article data-page="post">
       <Content />
     </article>

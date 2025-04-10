@@ -12,21 +12,41 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
 
-      # Astro プロジェクトのセットアップ&ビルド
-      - name: Install and build Astro project
-        uses: withastro/action@v3
+      # Node.js と pnpm のセットアップ
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          package-manager: pnpm@latest
+          cache: pnpm
+
+      # キャッシュ設定を追加
+      - name: Cache Astro assets
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            node_modules/.astro/assets
+          key: ${{ runner.OS }}-node-astro-assets-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.OS }}-node-astro-assets-
+
+      # 依存関係のインストールとビルド
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # ビルド
+      - name: Build the project
+        run: pnpm build
 
       # さくらサーバにSSHでアクセスするための設定
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/id_rsa
+      - name: Setup SSH
+        run: echo "$SSH_PRIVATE_KEY" > key && chmod 600 key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
       # さくらサーバにSSHで接続して、rsyncでファイルを転送
       - name: Deploy to Sakura Server

@@ -34,12 +34,16 @@ export async function getPage(pageName: string) {
   return page;
 }
 
-export async function getPages() {
+interface GetPageArgs {
+  withHidden?: boolean;
+}
+export async function getPages({ withHidden = true }: GetPageArgs = {}) {
   const page = (await getCollection('pages'))
     .filter((page) => !page.data.deleted && page.data.title !== 'README')
     .sort((a, b) => b.data.tags.sort - a.data.tags.sort);
 
-  return page;
+  if (withHidden) return page;
+  return page.filter((page) => !page.data.tags.hidden);
 }
 
 export async function getSections(name?: string) {

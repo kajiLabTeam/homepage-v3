@@ -10,7 +10,7 @@ export interface Path {
 
 const paths: Path[] = [
   { page: 'home', link: '/' },
-  ...(await getPages()).map(({ data }) => ({ link: data.link, page: data.tags.page })),
+  ...(await getPages({ withHidden: false })).map(({ data }) => ({ link: data.link, page: data.tags.page })),
   { page: 'posts', link: '/posts' },
 ];
 ---

@@ -81,6 +81,11 @@ export const collections = {
       date: z.coerce.date().optional(),
       page: z.string().optional().default('other'),
       sort: z.coerce.number().optional().default(0),
+      hidden: z
+        .string()
+        .transform((v) => v === 'true')
+        .optional()
+        .default('false'),
     }).transform(({ tags, ...esa }) => ({ ...esa, tags, link: `/${tags.page}` })),
   }),
   posts: defineCollection({

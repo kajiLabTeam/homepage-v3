@@ -1,1 +1,2 @@
+/hpg/blog/:id/   /post/:id   301
 /hpg/blog/:id   /post/:id   301

@@ -18,6 +18,7 @@ export default defineConfig({
       },
     },
   },
+  trailingSlash: 'never',
   devToolbar: {
     enabled: false,
   },

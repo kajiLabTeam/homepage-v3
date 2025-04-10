@@ -47,7 +47,7 @@ interface Props {
 const { keyword, keywords, page, pageCount, posts } = Astro.props;
 
 function link(category: string, page: number = 1) {
-  return `/posts/${category ? `${category}/` : ''}${page > 1 ? page : ''}`;
+  return `/posts/${category ? `${category}` : ''}${page > 1 ? page : ''}`;
 }
 ---
 

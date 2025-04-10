@@ -15,6 +15,9 @@ jobs:
       # Astro プロジェクトのセットアップ&ビルド
       - name: Install and build Astro project
         uses: withastro/action@v3
+        with:
+          node-version: 22
+          package-manager: pnpm@latest
 
       # さくらサーバにSSHでアクセスするための設定
       - name: Set up SSH

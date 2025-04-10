@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: import.meta.env.HOST_NAME,
+  site: 'https://kajilab.net/',
   integrations: [sitemap()],
   image: {
     domains: ['img.esa.io'],

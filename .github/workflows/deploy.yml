@@ -51,7 +51,7 @@ jobs:
       # さくらサーバにSSHで接続して、rsyncでファイルを転送
       - name: Deploy to Sakura Server
         run: |
-          rsync -acv --delete -e "ssh -o StrictHostKeyChecking=no" dist/ $SSH_USERNAME@$SSH_HOSTNAME:$DESTINATION_PATH
+          rsync -acv --delete -e "ssh -i key -o StrictHostKeyChecking=no" dist/ $SSH_USERNAME@$SSH_HOSTNAME:$DESTINATION_PATH
         env:
           SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
           SSH_HOSTNAME: ${{ secrets.SSH_HOSTNAME }}

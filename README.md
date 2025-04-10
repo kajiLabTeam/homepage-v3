@@ -1,48 +1,75 @@
-# Astro Starter Kit: Basics
+# 最初に
+[esa](https://kjlb.esa.io/posts/7449)にもこれと同じREADMEが書かれています．
+そちらの方がパスワードは特に書かれていませんが見やすいので，おすすめです．
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+## 梶研Webサイトのリポジトリ
+このリポジトリには梶研のWebサイトを構成するデータが置かれています．
+このリポジトリをクローンして記事を追加してプッシュすると本番サーバ(さくらのレンタルサーバ)に自動で変更が反映されます．
+この仕組みはGitHub Actionを使用して実現しています．
+GitHub Actionの設定は以下のファイル(**gh-pages.yml**)内に記載されています．
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+> [!IMPORTANT]
+> この README に梶研Webサイトの管理に関するドキュメントがあります
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 言葉の定義
+|  |  説明 |
+| --- | --- |
+| トップ画面 | [kajilab.net/](https://kajilab.net/) ←この画面 |
+| 投稿画面 | [kajilab.net/post](https://kajilab.net/post) ←この画面 |
+| 投稿一覧画面 | [kajilab.net/posts/*](https://kajilab.net/posts) ←この画面 |
+| 各画面 | トップ画面, 投稿画面, 投稿一覧画面 **以外** の画面. esaから画面を追加/削除できます  |
+| 記事 | 画面に関係なく、esaに書いた内容. 基本、記事と画面が1対1対応するがトップ画面のセクションはこの限りでない |
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## 記事の管理
+### 追加 / 編集
+普段通りesaに追加/編集することで更新されます
 
-## 🚀 Project Structure
+### 削除
+`#deleted` タグを追加することで削除できます
 
-Inside of your Astro project, you'll see the following folders and files:
+※ esa上の `梶研Webサイト` ディレクトリから削除してもWebサイト上からは消えません
+※ リポジトリ上からも削除する場合はリポジトリに対して Git で操作してください
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+### 画像等のファイルのアップロード
+画像(webp, png, jpeg 等) は自動で最適化してアップロードされます
+その他のファイルは上げられると泣いてしまうので Youtube, Google Drive など別の媒体にあげてからURLを貼り付けるようにしてください
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## # トップ画面のセクションの管理の詳細
+## セクションタイプの変更
+`#section:{type}` でセクションのタイプを指定できます
+指定できるタイプは以下のみです
 
-## 🧞 Commands
+- `top`: 全ての画面でアイコンと一緒に表示されるセクション
+- `notice`: お知らせセクション. トップ画面の一番上に表示される
+- `about`: 梶研についてのセクション. `/about`画面へのリンク(詳しく見る)が必ず付く
+- `oothers`: `about`セクションと最近の投稿の間に挿入されるセクション.
 
-All commands are run from the root of the project, from a terminal:
+例) `#section:others`
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+### ソート順の変更
+`#sort:{n}` タグでヘッダー内の優先順の変更ができます
 
-## 👀 Want to learn more?
+`other` 以外は複数ある場合 `#sort:{n}` が大きい方が表示されます
+`other` は複数ある場合 `#sort:{n}` が大きい順に上から表示されます
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+例) `#sort:100`
+
+
+## 投稿画面の記事の管理の詳細
+## 投稿日の変更
+`#date:yyyy-mm-dd` タグで投稿日を変更できます
+
+例) `#date:2005-01-05`
+
+## 各画面の記事の管理の詳細
+## ページURL / ヘッダーのページ名の変更
+`#date:yyyy-mm-dd` タグでページURL及びヘッダーのページ名の変更ができます
+英語1単語で表現してください
+
+例) `#page:about`
+
+## ヘッダー内のソート順の変更
+`#sort:{n}` タグでヘッダー内のソート順の変更ができます
+数字が大きいほど左側になります
+
+例) `#sort:100`

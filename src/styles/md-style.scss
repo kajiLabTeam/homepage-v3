@@ -44,7 +44,6 @@ article {
   }
 
   img {
-    margin: 20px;
     max-width: 100%;
     border: 1px solid #eee;
   }
@@ -126,7 +125,7 @@ article {
     scroll-margin-top: $header-height + 20px;
   }
 
-  & > *:not(h1, h2, h3, h4, h5, h6) {
+  & > *:not(h1, h2, h3, h4, h5, h6, img) {
     margin-left: 10px;
   }
 }

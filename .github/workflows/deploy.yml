@@ -1,0 +1,44 @@
+name: Deploy to Sakura Server
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+
+      # Astro プロジェクトのセットアップ&ビルド
+      - name: Install and build Astro project
+        uses: withastro/action@v3
+
+      # さくらサーバにSSHでアクセスするための設定
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/id_rsa
+
+      # さくらサーバにSSHで接続して、rsyncでファイルを転送
+      - name: Deploy to Sakura Server
+        run: |
+          rsync -acv --delete -e "ssh -o StrictHostKeyChecking=no" dist/ $SSH_USERNAME@$SSH_HOSTNAME}:$DESTINATION_PATH
+        env:
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_HOSTNAME: ${{ secrets.SSH_HOSTNAME }}
+          DESTINATION_PATH: ${{ secrets.DESTINATION_PATH }}
+
+      # CDNのキャッシュ削除
+      - name: Delete CDN Caches
+        run: |
+          curl -X DELETE "$CACHE_DELETE_API_URL" -H "Content-Type:application/json" -H "X-Auth-Email: $CACHE_AUTH_EMAIL" -H "X-Auth-Key: $CACHE_AUTH_KEY" --data '{"purge_everything":true}'
+        env:
+          CACHE_DELETE_API_URL: ${{ secrets.CACHE_DELETE_API_URL }}
+          CACHE_AUTH_EMAIL: ${{ secrets.CACHE_AUTH_EMAIL }}
+          CACHE_AUTH_KEY: ${{ secrets.CACHE_AUTH_KEY }}

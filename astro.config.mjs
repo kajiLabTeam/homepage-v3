@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import remarkImgToMarkdown from './src/plugins/rehype/img-to-markdown';
+import remarkImgToMarkdown from './src/plugins/img-to-markdown';
 
 // https://astro.build/config
 export default defineConfig({

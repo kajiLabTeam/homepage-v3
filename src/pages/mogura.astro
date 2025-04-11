@@ -1,0 +1,54 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { Image } from 'astro:assets';
+---
+
+<Layout class="main" particle="kaji">
+  <div class="container">
+    <h1>モグラ</h1>
+
+    <Image src="/img/kaji.webp" alt="これはモグラです" width="200" height="200" />
+    <p>これはモグラです</p>
+  </div>
+
+  <div class="background"></div>
+</Layout>
+
+<style lang="scss">
+  .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .container {
+      text-align: center;
+    }
+
+    .background {
+      $color: #ffff00;
+
+      position: fixed;
+      width: 200vw;
+      height: 200vw;
+      left: calc(50% - 100vw);
+      top: calc(50% - 100vw);
+      background-image:
+        repeating-conic-gradient(transparent 0, transparent 13deg, $color 13deg, $color 16deg),
+        repeating-conic-gradient(transparent 0, transparent 20deg, $color 20deg, $color 23deg),
+        repeating-conic-gradient(transparent 0, transparent 5deg, $color 5deg, $color 8deg),
+        repeating-conic-gradient(transparent 0, transparent 40deg, $color 40deg, $color 44deg),
+        repeating-conic-gradient(transparent 0, transparent 10deg, $color 10deg, $color 13deg);
+      animation: rotate 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+</style>

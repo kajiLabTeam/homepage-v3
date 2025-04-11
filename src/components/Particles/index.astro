@@ -285,6 +285,51 @@ const particles = {
       },
     },
   },
+  kaji: {
+    particles: {
+      number: {
+        value: 20,
+        density: {
+          enable: true,
+          value_area: 1000,
+        },
+      },
+      shape: {
+        type: 'image',
+        image: {
+          src: '/img/kaji.webp',
+          width: 120,
+          height: 120,
+        },
+      },
+      opacity: {
+        value: 1,
+        random: true,
+      },
+      size: {
+        value: 40,
+        random: true,
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: 'bottom',
+        random: true,
+        straight: false,
+        out_mode: 'out',
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 10,
+        },
+      },
+    },
+  },
 } as const satisfies Record<string, ISourceOptions>;
 export type ParticleType = keyof typeof particles;
 

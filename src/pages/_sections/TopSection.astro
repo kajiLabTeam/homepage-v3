@@ -16,10 +16,25 @@ const { Content } = await render(section);
 ---
 
 <CardLayout class={className} {...props} noCardOnMobile>
-  <Image class="logo" src="/img/kaji.webp" alt="梶研ロゴ" width="120" height="120" densities={[2]} />
+  <Image
+    id="top-section-logo"
+    class="logo"
+    src="/img/kaji.webp"
+    alt="これは何の生物でしょうか？ → コンソールにて `whatCreature()`"
+    width="120"
+    height="120"
+    densities={[2]}
+  />
   <h2>{section.data.title}</h2>
   <Content />
 </CardLayout>
+
+<script>
+  const logo = document.getElementById('top-section-logo');
+  if (logo) {
+    logo.addEventListener('click', () => (window.location.href = '/mogura'));
+  }
+</script>
 
 <style lang="scss">
   .logo {

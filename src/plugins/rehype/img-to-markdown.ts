@@ -24,7 +24,6 @@ function parseImgTag(imgTag: string): { [key: string]: string } | null {
 
 const remarkImgToMarkdown: Plugin<[], Root> = () => {
   const transformer = (tree: any) => {
-    console.log('tree', JSON.stringify(tree, null, 2));
     visit(tree, 'html', (node) => {
       // img タグの場合はsrc属性を取得
       const isImgTag = node.value.match(/<img\s+[^>]+>/);

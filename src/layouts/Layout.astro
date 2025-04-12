@@ -12,6 +12,7 @@ import {
   SITE_NAME,
   TWITTER_CARD_TYPE,
 } from '@/consts/meta';
+import { getImage } from 'astro:assets';
 
 interface Props {
   title?: string;
@@ -21,7 +22,15 @@ interface Props {
   particle?: ParticleType;
 }
 const { title, description, ogp, class: className, particle, ...rest } = Astro.props;
-const OGP_URL = new URL(OGP.src, Astro.url).toString();
+const defaultOgp = new URL(OGP.src, Astro.url).toString();
+const OGP_URL = await getImage({
+  src: ogp ?? defaultOgp,
+  format: 'webp',
+  width: 1200,
+  height: 630,
+  quality: 'mid',
+  fit: 'cover',
+});
 ---
 
 <!doctype html>
@@ -43,12 +52,12 @@ const OGP_URL = new URL(OGP.src, Astro.url).toString();
     <meta property="og:url" content={Astro.url} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:locale" content="ja_JP" />
-    <meta property="og:image" content={ogp ?? OGP_URL} />
+    <meta property="og:image" content={OGP_URL.src} />
     <meta property="og:type" content={CATEGORY} />
     <meta name="twitter:card" content={TWITTER_CARD_TYPE} />
     <meta name="twitter:title" content={SITE_NAME} />
     <meta name="twitter:description" content={description ?? DESCRIPTION} />
-    <meta name="twitter:image" content={ogp ?? OGP_URL} />
+    <meta name="twitter:image" content={OGP_URL.src} />
   </head>
   <body>
     <Header />

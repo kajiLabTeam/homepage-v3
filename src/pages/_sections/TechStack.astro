@@ -15,6 +15,11 @@ import HTML from '@/components/icons/HTML.astro';
 import CSS from '@/components/icons/CSS.astro';
 import JavaScript from '@/components/icons/JavaScript.astro';
 import TypeScript from '@/components/icons/TypeScript.astro';
+import Jupyter from '@/components/icons/Jupyter.astro';
+import RaspberryPi from '@/components/icons/RaspberryPi.astro';
+import Arduino from '@/components/icons/Arduino.astro';
+import Proxmox from '@/components/icons/Proxmox.astro';
+import Ubuntu from '@/components/icons/Ubuntu.astro';
 
 // アイコンは https://icones.js.org/collection/material-icon-theme より
 
@@ -28,6 +33,7 @@ const { class: className, ...props } = Astro.props;
   <h2>データサイエンス</h2>
   <div class="icons">
     <Python />
+    <Jupyter />
   </div>
 
   <h2>モバイル / ウェアラブル</h2>
@@ -45,9 +51,9 @@ const { class: className, ...props } = Astro.props;
   <h2>バックエンド</h2>
   <div class="icons">
     <Go />
+    <Python />
     <Node />
     <TypeScript />
-    <Python />
   </div>
 
   <h2>Webフロントエンド</h2>
@@ -58,6 +64,18 @@ const { class: className, ...props } = Astro.props;
     <TypeScript />
     <React />
     <Next />
+  </div>
+
+  <h2>電子工作</h2>
+  <div class="icons">
+    <RaspberryPi />
+    <Arduino />
+  </div>
+
+  <h2>インフラ</h2>
+  <div class="icons">
+    <Proxmox />
+    <Ubuntu />
   </div>
 </CardLayout>
 
@@ -72,9 +90,23 @@ const { class: className, ...props } = Astro.props;
     const techstack = document.getElementById('techstack');
     if (techstack) techstack.style.display = 'block';
 
+    // クエリパラメータに tech を追加
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('tech', 'show');
+    const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+    window.history.replaceState({}, '', newUrl);
+
     console.log('技術スタックを表示します');
     return techstack;
   };
+
+  // クエリパラメータを取得
+  const urlParams = new URLSearchParams(window.location.search);
+  const showTechParam = urlParams.get('tech');
+  if (showTechParam !== null) {
+    const techstack = document.getElementById('techstack');
+    if (techstack) techstack.style.display = 'block';
+  }
 </script>
 
 <style lang="scss">

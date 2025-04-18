@@ -1,5 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+
+Astro.response.status = 418;
+Astro.response.statusText = 'I\'m a teapot';
 ---
 
 <Layout class="main" title="418 I' m a teapot" particle="teapot">

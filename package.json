@@ -14,6 +14,7 @@
     "lint:ci": "eslint ."
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.5.0",
     "@astrojs/sitemap": "^3.3.0",
     "astro": "^5.5.4",
     "astro-particles": "^2.10.0",

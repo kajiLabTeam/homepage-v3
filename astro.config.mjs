@@ -43,8 +43,4 @@ export default defineConfig({
       },
     },
   }),
-
-  experimental: {
-    session: true,
-  },
 });

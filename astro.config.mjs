@@ -10,10 +10,6 @@ export default defineConfig({
   site: 'https://kajilab.net/',
   integrations: [sitemap()],
 
-  experimental: {
-    session: true,
-  },
-
   markdown: {
     remarkPlugins: [remarkImgToMarkdown],
   },

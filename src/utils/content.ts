@@ -6,16 +6,27 @@ interface GetPostsArgs {
   offset?: number;
   limit?: number;
   keyword?: string;
+  onlyPublished?: boolean;
 }
 function _isKeywordMatch(post: CollectionEntry<'posts'>, keyword: string | undefined) {
   if (!keyword) return true;
   return post.data.keywords.includes(keyword);
 }
-export async function getPosts({ offset = 0, limit, keyword }: GetPostsArgs = {}) {
+export async function getPosts({ offset = 0, limit, keyword, onlyPublished = true }: GetPostsArgs = {}) {
   const posts = (await getCollection('posts'))
     .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
-    .filter((post) => !post.data.deleted && post.data.title !== 'README' && _isKeywordMatch(post, keyword))
+    .filter(
+      (post) =>
+        !post.data.deleted &&
+        post.data.title !== 'README' &&
+        _isKeywordMatch(post, keyword) &&
+        (!onlyPublished || post.data.published),
+    )
     .slice(offset, limit && offset + limit);
+
+  if (onlyPublished) {
+    return posts.filter((post) => post.data.published);
+  }
 
   return posts;
 }

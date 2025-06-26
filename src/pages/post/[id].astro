@@ -6,7 +6,7 @@ import { render } from 'astro:content';
 import '@/styles/md-style.scss';
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
+  const posts = await getPosts({ onlyPublished: false });
 
   return posts.map((post) => ({
     params: { id: post.data.pageId },

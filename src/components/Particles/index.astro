@@ -1,6 +1,5 @@
 ---
-import Particles from 'astro-particles';
-import type { ISourceOptions } from 'tsparticles-engine';
+import { type ILoadParams } from '@tsparticles/engine';
 
 interface Props {
   particle?: ParticleType;
@@ -14,24 +13,33 @@ const particles = {
         value: 20,
         density: {
           enable: true,
-          value_area: 100,
+          height: 500,
+          width: 500,
         },
       },
       shape: {
-        type: 'image',
-        image: {
-          src: '/img/snow.png',
-          width: 120,
-          height: 120,
+        type: 'images',
+        options: {
+          images: {
+            src: '/img/snow.png',
+            width: 120,
+            height: 120,
+          },
         },
       },
       opacity: {
         value: 1,
-        random: true,
+        animation: {
+          enable: true,
+          mode: 'random',
+        },
       },
       size: {
         value: 10,
-        random: true,
+        animation: {
+          enable: true,
+          mode: 'random',
+        },
       },
       move: {
         enable: true,
@@ -39,7 +47,7 @@ const particles = {
         direction: 'bottom',
         random: true,
         straight: false,
-        out_mode: 'out',
+        outModes: 'out',
       },
       rotate: {
         value: {
@@ -59,24 +67,33 @@ const particles = {
         value: 20,
         density: {
           enable: true,
-          value_area: 100,
+          height: 500,
+          width: 500,
         },
       },
       shape: {
-        type: 'image',
-        image: {
-          src: '/img/leaf.png',
-          width: 120,
-          height: 120,
+        type: 'images',
+        options: {
+          images: {
+            src: '/img/leaf.png',
+            width: 120,
+            height: 120,
+          },
         },
       },
       opacity: {
-        value: 1,
-        random: true,
+        value: 0.5,
+        animation: {
+          enable: true,
+          mode: 'random',
+        },
       },
       size: {
         value: 10,
-        random: true,
+        animation: {
+          enable: true,
+          mode: 'random',
+        },
       },
       move: {
         enable: true,
@@ -84,7 +101,7 @@ const particles = {
         direction: 'bottom',
         random: true,
         straight: false,
-        out_mode: 'out',
+        outModes: 'out',
       },
       rotate: {
         value: {
@@ -93,8 +110,11 @@ const particles = {
         },
         animation: {
           enable: true,
-          speed: -10,
+          speed: 5,
+          decay: 0,
+          sync: false,
         },
+        direction: 'random',
       },
     },
   },
@@ -104,24 +124,29 @@ const particles = {
         value: 20,
         density: {
           enable: true,
-          value_area: 100,
+          height: 500,
+          width: 500,
         },
       },
       shape: {
-        type: 'image',
-        image: {
-          src: '/img/momiji.png',
-          width: 120,
-          height: 120,
+        type: 'images',
+        options: {
+          images: {
+            src: '/img/momiji.png',
+            width: 120,
+            height: 120,
+          },
+        },
+      },
+      size: {
+        value: 20,
+        animation: {
+          enable: true,
+          mode: 'random',
         },
       },
       opacity: {
-        value: 1,
-        random: true,
-      },
-      size: {
-        value: 10,
-        random: true,
+        value: 0.5,
       },
       move: {
         enable: true,
@@ -129,7 +154,7 @@ const particles = {
         direction: 'bottom',
         random: true,
         straight: false,
-        out_mode: 'out',
+        outModes: 'out',
       },
       rotate: {
         value: {
@@ -149,24 +174,29 @@ const particles = {
         value: 20,
         density: {
           enable: true,
-          value_area: 100,
+          height: 500,
+          width: 500,
         },
       },
       shape: {
-        type: 'image',
-        image: {
-          src: '/img/sakura.png',
-          width: 120,
-          height: 120,
+        type: 'images',
+        options: {
+          images: {
+            src: '/img/sakura.png',
+            width: 120,
+            height: 120,
+          },
         },
       },
       opacity: {
-        value: 1,
-        random: true,
+        value: 0.5,
       },
       size: {
         value: 10,
-        random: true,
+        animation: {
+          enable: true,
+          mode: 'random',
+        },
       },
       move: {
         enable: true,
@@ -174,7 +204,7 @@ const particles = {
         direction: 'bottom',
         random: true,
         straight: false,
-        out_mode: 'out',
+        outModes: 'out',
       },
       rotate: {
         value: {
@@ -194,31 +224,40 @@ const particles = {
         value: 20,
         density: {
           enable: true,
-          value_area: 100,
+          height: 500,
+          width: 500,
         },
       },
       shape: {
-        type: 'image',
-        image: {
-          src: '/img/rain.png',
-          width: 120,
-          height: 120,
+        type: 'images',
+        options: {
+          images: {
+            src: '/img/rain.png',
+            width: 120,
+            height: 120,
+          },
         },
       },
       opacity: {
         value: 1,
-        random: true,
+        animation: {
+          enable: true,
+          mode: 'random',
+        },
       },
       size: {
         value: 10,
-        random: true,
+        animation: {
+          enable: true,
+          mode: 'random',
+        },
       },
       move: {
         enable: true,
         speed: 5,
         direction: 'bottom',
         straight: false,
-        out_mode: 'out',
+        outModes: 'out',
         angle: {
           value: 0,
           offset: -10,
@@ -243,27 +282,32 @@ const particles = {
   teapot: {
     particles: {
       number: {
-        value: 20,
+        value: 5,
         density: {
           enable: true,
-          value_area: 1000,
+          height: 500,
+          width: 500,
         },
       },
       shape: {
-        type: 'image',
-        image: {
-          src: '/img/teapot.png',
-          width: 120,
-          height: 120,
+        type: 'images',
+        options: {
+          images: {
+            src: '/img/teapot.png',
+            width: 120,
+            height: 120,
+          },
         },
       },
       opacity: {
-        value: 1,
-        random: true,
+        value: 0.5,
       },
       size: {
-        value: 40,
-        random: true,
+        value: 20,
+        animation: {
+          enable: true,
+          mode: 'random',
+        },
       },
       move: {
         enable: true,
@@ -271,7 +315,7 @@ const particles = {
         direction: 'bottom',
         random: true,
         straight: false,
-        out_mode: 'out',
+        outModes: 'out',
       },
       rotate: {
         value: {
@@ -291,24 +335,29 @@ const particles = {
         value: 20,
         density: {
           enable: true,
-          value_area: 1000,
+          height: 1000,
+          width: 1000,
         },
       },
       shape: {
-        type: 'image',
-        image: {
-          src: '/img/kaji.webp',
-          width: 120,
-          height: 120,
+        type: 'images',
+        options: {
+          images: {
+            src: '/img/kaji.webp',
+            width: 120,
+            height: 120,
+          },
         },
       },
       opacity: {
-        value: 1,
-        random: true,
+        value: 0.5,
       },
       size: {
         value: 40,
-        random: true,
+        animation: {
+          enable: true,
+          mode: 'random',
+        },
       },
       move: {
         enable: true,
@@ -316,7 +365,7 @@ const particles = {
         direction: 'bottom',
         random: true,
         straight: false,
-        out_mode: 'out',
+        outModes: 'out',
       },
       rotate: {
         value: {
@@ -325,15 +374,20 @@ const particles = {
         },
         animation: {
           enable: true,
-          speed: 10,
+          speed: 5,
+          decay: 0,
+          sync: false,
         },
+        direction: 'random',
+        path: false,
       },
     },
   },
-} as const satisfies Record<string, ISourceOptions>;
+} as const satisfies Record<string, ILoadParams['options']>;
+
 export type ParticleType = keyof typeof particles;
 
-const monthParticles: Record<number, ISourceOptions> = {
+const monthParticles: Record<number, ILoadParams['options']> = {
   1: particles.snow,
   2: particles.snow,
   3: particles.sakura,
@@ -349,13 +403,14 @@ const monthParticles: Record<number, ISourceOptions> = {
 };
 const month = new Date().getMonth() + 1;
 
-const selectedParticle = particle ? particles[particle] : monthParticles[month];
+const selectedParticle: ILoadParams['options'] = particle ? particles[particle] : monthParticles[month];
 ---
 
 <script>
-  import { type Engine } from 'tsparticles-engine';
-  import { loadFull } from 'tsparticles';
-  import { loadFireworksPreset } from 'tsparticles-preset-fireworks';
+  import { type Engine } from '@tsparticles/engine';
+  import { tsParticles, type ILoadParams } from '@tsparticles/engine';
+  import { loadFireworksPreset } from '@tsparticles/preset-fireworks';
+  import { loadAll } from '@tsparticles/all';
 
   declare global {
     interface Window {
@@ -363,13 +418,27 @@ const selectedParticle = particle ? particles[particle] : monthParticles[month];
     }
   }
 
-  window.particlesInit = async (engine: Engine) => {
-    await loadFireworksPreset(engine);
-    await loadFull(engine);
-  };
+  window.addEventListener('DOMContentLoaded', () => {
+    (async () => {
+      const selectedParticle: ILoadParams['options'] = JSON.parse(
+        document.getElementById('particle')?.getAttribute('data-particle-options') || '{}',
+      );
+
+      await loadFireworksPreset(tsParticles);
+      await loadAll(tsParticles);
+
+      await tsParticles.load({
+        id: 'particle',
+        options: selectedParticle,
+      });
+
+      const particles = tsParticles.domItem(0);
+      particles?.play();
+    })();
+  });
 </script>
 
-<Particles id="particle" class="particle" options={selectedParticle} init="particlesInit" />
+<div id="particle" data-particle-options={JSON.stringify(selectedParticle)}></div>
 
 <style lang="scss" is:global>
   [data-id='particle'] {

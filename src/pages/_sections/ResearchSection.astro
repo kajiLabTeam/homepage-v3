@@ -4,7 +4,7 @@ import '@/styles/md-style.scss';
 import { getSection } from '@/utils/content';
 import { render } from 'astro:content';
 
-const section = await getSection('about');
+const section = await getSection('research');
 
 interface Props {
   class?: string;
@@ -17,12 +17,12 @@ const { class: className, ...props } = Astro.props;
 const { Content } = await render(section);
 ---
 
-<CardLayout class={className} {...props} title={section.data.title} noCardOnMobile>
+<CardLayout {...props} title={section.data.title} noCardOnMobile>
   <article data-page="post">
-    <Content />
+    <Content {...props} class={className} />
   </article>
 
-  <a class="detail" href="/about">詳細</a>
+  <a class="detail" href="/research">詳細</a>
 </CardLayout>
 
 <style lang="scss">

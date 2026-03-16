@@ -72,6 +72,14 @@ export async function getResearch({ project }: GetResearchArgs = {}) {
   return page;
 }
 
+export async function getResearchProjects() {
+  const research = await getResearch();
+  const projects = research.map((item) => item.data.project);
+  const uniqueProjects = Array.from(new Set(projects));
+
+  return uniqueProjects;
+}
+
 export async function getSections(name?: string) {
   const sections = (await getCollection('sections'))
     .filter((section) => !section.data.deleted && section.data.title !== 'README')

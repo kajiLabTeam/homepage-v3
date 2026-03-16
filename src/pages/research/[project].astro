@@ -4,19 +4,19 @@ import { render } from 'astro:content';
 import TopSection from '../_sections/TopSection.astro';
 import Toc from '@/components/Toc/index.astro';
 import CardLayout from '@/layouts/CardLayout.astro';
-import { getResearch } from '@/utils/content';
+import { getResearch, getResearchProjects } from '@/utils/content';
 import type { MarkdownHeading } from 'astro';
 import '@/styles/md-style.scss';
 
 export async function getStaticPaths() {
-  const researchList = await getResearch();
+  const projects = await getResearchProjects();
 
-  const projects = [...new Set(researchList.map((r) => r.data.project))];
-
-  return projects.map((project) => ({
-    params: { project: project.toLowerCase() },
-    props: { project, researchList: researchList.filter((r) => r.data.project === project) },
-  }));
+  return await Promise.all(
+    projects.map(async (project) => ({
+      params: { project: project.toLowerCase() },
+      props: { project, researchList: await getResearch({ project }) },
+    })),
+  );
 }
 
 const { project, researchList } = Astro.props;

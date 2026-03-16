@@ -99,7 +99,7 @@ export const collections = {
       tags,
       title,
       project: category ?? 'other',
-      link: `/research/${(category ?? esa.number.toString()).toLowerCase()}`,
+      link: `/research/${(category ?? esa.number.toString()).toLowerCase()}#${title}`,
     })),
   }),
   posts: defineCollection({

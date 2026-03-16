@@ -1,7 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import HamburgerMenu from './HamburgerMenu.astro';
-import { getPages } from '@/utils/content';
+import DropDown from '../DropDown/index.astro';
+import { getPages, getResearchProjects } from '@/utils/content';
 
 export interface Path {
   link: string;
@@ -13,25 +14,47 @@ const paths: Path[] = [
   ...(await getPages({ withHidden: false })).map(({ data }) => ({ link: data.link, page: data.tags.page })),
   { page: 'posts', link: '/posts' },
 ];
+const projects = await getResearchProjects();
 ---
 
 <header>
   <nav>
     <div class:list={['container', 'logo']}>
       <a href="/">
-        <Image src="/img/kaji_original.webp" alt="これは何の生物でしょうか？ → コンソールにて `whatCreature()`" height="40" width="40" densities={[2]} />
+        <Image
+          src="/img/kaji_original.webp"
+          alt="これは何の生物でしょうか？ → コンソールにて `whatCreature()`"
+          height="40"
+          width="40"
+          densities={[2]}
+        />
         <h1 class="title">Kaji Lab</h1>
       </a>
     </div>
 
     <div class:list={['container', 'links']}>
-      {
-        paths.map((path) => (
-          <a class="link" href={path.link}>
-            {path.page}
-          </a>
-        ))
-      }
+      <div class="link-list">
+        {
+          paths.map((path) =>
+            path.page === 'research' ? (
+              <DropDown label="カテゴリー">
+                <span class="link" slot="trigger">
+                  {path.page}
+                </span>
+
+                <a href={path.link}>Projects</a>
+                {projects.map((project) => (
+                  <a href={`/research/${project.toLowerCase()}`}>- {project}</a>
+                ))}
+              </DropDown>
+            ) : (
+              <a class="link" href={path.link}>
+                {path.page}
+              </a>
+            ),
+          )
+        }
+      </div>
     </div>
 
     <HamburgerMenu class="hamburger" paths={paths} />
@@ -86,7 +109,9 @@ const paths: Path[] = [
         }
 
         &.links {
-          overflow-x: scroll;
+          min-width: 0;
+          flex: 1;
+          justify-content: flex-end;
         }
 
         @include mobile {
@@ -95,12 +120,24 @@ const paths: Path[] = [
           }
         }
 
+        .link-list {
+          min-width: 0;
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+
         .title {
           font-size: 1.2rem;
         }
 
         .link {
+          color: $color-primary;
           text-transform: capitalize;
+        }
+
+        :global(.dropdown) {
+          flex-shrink: 0;
         }
       }
 

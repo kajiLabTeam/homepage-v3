@@ -83,12 +83,13 @@ function link(category: string, page: number = 1) {
       padding: 10px 0 20px;
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 10px 15px;
       justify-content: center;
 
       a {
         padding: 5px 12px;
         color: $color-primary;
+        background-color: $color-bg;
         border: solid 1px $color-primary;
         border-radius: 5px;
         text-transform: capitalize;
@@ -106,9 +107,13 @@ function link(category: string, page: number = 1) {
     .posts {
       padding: 20px 0;
       display: grid;
-      grid-template-columns: repeat(auto-fit, 300px);
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
       justify-content: center;
+
+      @include mobile {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      }
     }
   }
 </style>

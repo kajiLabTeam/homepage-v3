@@ -29,12 +29,13 @@ const researchListWithCOntent = await Promise.all(
 const headings = researchList.flatMap(({ data: { title } }) => {
   return [{ text: title, depth: 1, slug: title }] as MarkdownHeading[];
 });
+const count = researchList.length;
 ---
 
 <Layout class="main" title={project}>
   <div class="side">
     <TopSection class="top-section" />
-    <Toc class="toc-section" headings={headings} />
+    <Toc class="toc-section" headings={headings} title='研究一覧' />
   </div>
 
   {
@@ -47,7 +48,7 @@ const headings = researchList.flatMap(({ data: { title } }) => {
     ))
   }
 
-  <style lang="scss">
+  <style lang="scss" define:vars={{ count }}>
     .main {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -55,7 +56,7 @@ const headings = researchList.flatMap(({ data: { title } }) => {
 
       .side {
         grid-column: 1/4;
-        grid-row: span 1;
+        grid-row: span var(--count);
 
         display: flex;
         flex-direction: column;

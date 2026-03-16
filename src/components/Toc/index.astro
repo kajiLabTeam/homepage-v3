@@ -6,12 +6,13 @@ interface Props {
   headings: MarkdownHeading[];
   depth?: number;
   class?: string;
+  title?: string;
 }
-const { headings, depth = 3, class: className, ...rest } = Astro.props;
+const { headings, depth = 3, class: className,title = "目次", ...rest } = Astro.props;
 const filteredHeadings = headings.filter((heading) => heading.depth <= depth);
 ---
 
-<CardLayout title="目次" class:list={['toc-card', className]} {...rest}>
+<CardLayout title={title} class:list={['toc-card', className]} {...rest}>
   <nav class="toc">
     <ul>
       {

@@ -130,6 +130,7 @@ article {
   }
 }
 
+// 一覧系ページ用
 article[data-page='member'],
 article[data-page='publication'],
 article[data-page='award'] {
@@ -148,6 +149,7 @@ article[data-page='award'] {
   }
 }
 
+// 記事系ページ用
 article[data-page='post'],
 article[data-page='research'],
 article[data-page='top'] {
@@ -241,13 +243,6 @@ article[data-page='top'] {
 
   summary {
     user-select: none;
-  }
-}
-
-article[data-page='research'] {
-  h1,
-  h2 {
-    margin-top: 0;
   }
 }
 

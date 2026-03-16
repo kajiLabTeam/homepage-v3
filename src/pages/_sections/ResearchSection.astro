@@ -17,9 +17,9 @@ const { class: className, ...props } = Astro.props;
 const { Content } = await render(section);
 ---
 
-<CardLayout {...props} title={section.data.title} noCardOnMobile>
+<CardLayout class={className} {...props} title={section.data.title} noCardOnMobile>
   <article data-page="post">
-    <Content {...props} class={className} />
+    <Content />
   </article>
 
   <a class="detail" href="/research">詳細</a>

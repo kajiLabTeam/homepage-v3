@@ -53,8 +53,8 @@ import OthersSection from './_sections/OthersSection.astro';
         }
 
         .news-section {
-          grid-column: span 4;
-          grid-row: span 2;
+          grid-column: span 8;
+          grid-row: span 1;
         }
       }
 
@@ -70,7 +70,7 @@ import OthersSection from './_sections/OthersSection.astro';
       grid-column: span 9;
 
       @include tablet {
-        grid-column: span 8;
+        grid-column: span 4;
       }
 
       @include mobile {
@@ -78,11 +78,12 @@ import OthersSection from './_sections/OthersSection.astro';
       }
     }
 
+    .research-section,
     .about-section {
       grid-column: span 9;
 
       @include tablet {
-        grid-column: span 8;
+        grid-column: 1/-1;
         grid-row: span 3;
       }
 

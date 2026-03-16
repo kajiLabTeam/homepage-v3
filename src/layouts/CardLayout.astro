@@ -7,11 +7,17 @@ interface Props {
   noCardOnMobile?: boolean;
 }
 
-const { title, createdAt, class: className, noCardOnMobile, ...props } = Astro.props;
+const { title, createdAt, class: className, id, noCardOnMobile, ...props } = Astro.props;
 ---
 
 <div class:list={['card-layout', className]} {...props} data-no-card-on-mobile={noCardOnMobile}>
-  {title && <h1 class="title">{title}</h1>}
+  {
+    title && (
+      <h1 class="title" id={id}>
+        {title}
+      </h1>
+    )
+  }
   {createdAt && <p class="created-at">{createdAt}</p>}
 
   <div class="content" data-has-title={title !== undefined}>
@@ -37,6 +43,8 @@ const { title, createdAt, class: className, noCardOnMobile, ...props } = Astro.p
     }
 
     .title {
+      font-size: 1.5rem;
+      scroll-margin-top: $header-height + 40px;
       position: relative;
       text-transform: capitalize;
 

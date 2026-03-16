@@ -57,6 +57,21 @@ export async function getPages({ withHidden = true }: GetPageArgs = {}) {
   return page.filter((page) => !page.data.tags.hidden);
 }
 
+interface GetResearchArgs {
+  project?: string;
+}
+export async function getResearch({ project }: GetResearchArgs = {}) {
+  const page = (await getCollection('research'))
+    .filter((page) => !page.data.deleted && page.data.title !== 'README')
+    .sort((a, b) => b.data.tags.sort - a.data.tags.sort);
+
+  if (project) {
+    return page.filter((page) => page.data.project === project);
+  }
+
+  return page;
+}
+
 export async function getSections(name?: string) {
   const sections = (await getCollection('sections'))
     .filter((section) => !section.data.deleted && section.data.title !== 'README')

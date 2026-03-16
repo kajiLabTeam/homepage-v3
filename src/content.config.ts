@@ -7,6 +7,7 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
   return z
     .object({
       title: z.string(),
+      category: z.string().nullable(),
       tags: z.preprocess(
         (tags) => {
           if (tags == null) return { _other: [] as string[] };
@@ -46,7 +47,7 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
       const { _other, ...t } = tags;
       if (_other === undefined) throw new Error('_other is required');
 
-      const { created_at, number, published, title } = esa;
+      const { created_at, number, published, title, category } = esa;
       const date: Date = tags.date ?? created_at;
       const year = date.getFullYear();
       const month = date.getMonth() + 1;
@@ -57,6 +58,7 @@ function _esaSchema<T extends Record<string, z.Schema>>(tagsSchema: T) {
         number,
         published,
         title,
+        category,
         tags: t,
         createdAt: date,
         createdAtStr: `${year}年${month}月${day}日`,
@@ -87,6 +89,18 @@ export const collections = {
         .optional()
         .default('false'),
     }).transform(({ tags, ...esa }) => ({ ...esa, tags, link: `/${tags.page}` })),
+  }),
+  research: defineCollection({
+    loader: glob({ base: './contents/research', pattern: '**/*.{md,mdx}' }),
+    schema: _esaSchema({
+      sort: z.coerce.number().optional().default(0),
+    }).transform(({ tags, title, category, ...esa }) => ({
+      ...esa,
+      tags,
+      title,
+      project: category ?? 'other',
+      link: `/research/${(category ?? esa.number.toString()).toLowerCase()}`,
+    })),
   }),
   posts: defineCollection({
     loader: glob({ base: './contents/posts', pattern: '**/*.{md,mdx}' }),

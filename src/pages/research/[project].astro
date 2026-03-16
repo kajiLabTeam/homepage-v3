@@ -1,0 +1,88 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { render } from 'astro:content';
+import TopSection from '../_sections/TopSection.astro';
+import Toc from '@/components/Toc/index.astro';
+import CardLayout from '@/layouts/CardLayout.astro';
+import { getResearch } from '@/utils/content';
+import type { MarkdownHeading } from 'astro';
+import '@/styles/md-style.scss';
+
+export async function getStaticPaths() {
+  const researchList = await getResearch();
+
+  const projects = [...new Set(researchList.map((r) => r.data.project))];
+
+  return projects.map((project) => ({
+    params: { project: project.toLowerCase() },
+    props: { project, researchList: researchList.filter((r) => r.data.project === project) },
+  }));
+}
+
+const { project, researchList } = Astro.props;
+const researchListWithCOntent = await Promise.all(
+  researchList.map(async (research) => {
+    const { Content } = await render(research);
+    return { ...research, Content };
+  }),
+);
+const headings = researchList.flatMap(({ data: { title } }) => {
+  return [{ text: title, depth: 1, slug: title }] as MarkdownHeading[];
+});
+---
+
+<Layout class="main" title={project}>
+  <div class="side">
+    <TopSection class="top-section" />
+    <Toc class="toc-section" headings={headings} />
+  </div>
+
+  {
+    researchListWithCOntent.map(({ Content, ...research }) => (
+      <CardLayout class="content" title={research.data.title} id={research.data.title}>
+        <article data-page="research">
+          <Content />
+        </article>
+      </CardLayout>
+    ))
+  }
+
+  <style lang="scss">
+    .main {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 30px;
+
+      .side {
+        grid-column: 1/4;
+        grid-row: span 1;
+
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        @include tablet {
+          display: contents;
+
+          .top-section {
+            grid-column: 1/-1;
+          }
+
+          .toc-section {
+            display: none;
+          }
+        }
+      }
+
+      .content {
+        padding: 30px 20px 30px;
+        grid-column: 4/-1;
+
+        @include tablet {
+          padding: 30px 10px 30px;
+          grid-column: 1/-1;
+        }
+      }
+    }
+  </style>
+</Layout>

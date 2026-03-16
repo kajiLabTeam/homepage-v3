@@ -50,7 +50,9 @@ article {
   }
 
   iframe {
-    max-width: 100%;
+    margin: 20px 0;
+    width: 100%;
+    aspect-ratio: 16/9;
   }
 
   ol {
@@ -123,7 +125,7 @@ article {
   h4,
   h5,
   h6 {
-    scroll-margin-top: $header-height + 20px;
+    scroll-margin-top: $header-height + 40px;
   }
 
   & > *:not(h1, h2, h3, h4, h5, h6, img) {
@@ -150,6 +152,7 @@ article[data-page='award'] {
 }
 
 article[data-page='post'],
+article[data-page='research'],
 article[data-page='top'] {
   h1,
   h2,
@@ -232,6 +235,21 @@ article[data-page='top'] {
   h6 + h4,
   h6 + h5,
   h6 + h6 {
+    margin-top: 0;
+  }
+
+  details {
+    cursor: pointer;
+  }
+
+  summary {
+    user-select: none;
+  }
+}
+
+article[data-page='research'] {
+  h1,
+  h2 {
     margin-top: 0;
   }
 }

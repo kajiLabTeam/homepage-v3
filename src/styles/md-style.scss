@@ -44,7 +44,7 @@ article {
   }
 
   img {
-    max-width: 100%;
+    width: 100%;
     border: 1px solid #eee;
     height: auto;
   }
@@ -52,6 +52,7 @@ article {
   iframe {
     margin: 20px 0;
     width: 100%;
+    height: auto;
     aspect-ratio: 16/9;
   }
 
@@ -126,10 +127,6 @@ article {
   h5,
   h6 {
     scroll-margin-top: $header-height + 40px;
-  }
-
-  & > *:not(h1, h2, h3, h4, h5, h6, img) {
-    margin-left: 10px;
   }
 }
 

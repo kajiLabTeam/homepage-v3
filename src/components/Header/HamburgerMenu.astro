@@ -1,4 +1,5 @@
 ---
+import { getResearchProjects } from '@/utils/content';
 import type { Path } from './index.astro';
 
 interface Props {
@@ -7,6 +8,8 @@ interface Props {
 }
 
 const { paths, class: className, ...rest } = Astro.props;
+
+const projects = await getResearchProjects();
 ---
 
 <div class:list={['hamburger-menu', className]} {...rest}>
@@ -26,6 +29,16 @@ const { paths, class: className, ...rest } = Astro.props;
         paths.map((path) => (
           <li>
             <a href={path.link}>{path.page}</a>
+
+            {path.page === 'research' && (
+              <ul>
+                {projects.map((project) => (
+                  <li>
+                    <a href={`/research/${project.toLowerCase()}`}>- {project}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))
       }
@@ -111,24 +124,32 @@ const { paths, class: className, ...rest } = Astro.props;
 
       ul {
         padding: 20px 0px 10px 20px;
-      }
 
-      li {
-        margin-left: 10px;
-        padding-block: 10px;
-        cursor: pointer;
-        list-style: none;
+        li {
+          margin-left: 10px;
+          padding-block: 10px;
+          cursor: pointer;
+          list-style: none;
 
-        a {
-          padding-left: 0;
-          width: 100%;
-          text-decoration: none;
-          display: inline-block;
-          transition: all $transition;
-          text-transform: capitalize;
+          a {
+            padding-left: 0;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            transition: all $transition;
+            text-transform: capitalize;
 
-          &:hover {
-            padding-left: 10px;
+            &:hover {
+              padding-left: 10px;
+            }
+          }
+        }
+
+        ul {
+          padding: 10px 0;
+
+          li {
+            padding-block: 5px;
           }
         }
       }

@@ -34,11 +34,9 @@ const { title, createdAt, class: className, id, noCardOnMobile, ...props } = Ast
 
     @include mobile {
       &[data-no-card-on-mobile='true'] {
-        padding: 0;
         box-shadow: none;
-        border-radius: 0;
         background-color: transparent;
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(5px);
       }
     }
 

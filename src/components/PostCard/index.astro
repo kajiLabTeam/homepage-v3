@@ -80,6 +80,10 @@ const { post } = Astro.props;
 
       .title {
         font-weight: bold;
+
+        @include mobile {
+          text-align: left;
+        }
       }
 
       .created-at {

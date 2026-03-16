@@ -22,6 +22,10 @@ const posts = await getPosts({ limit: 6 });
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+    
+    @include mobile {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
 
     .title {
       padding-block: 20px 10px;

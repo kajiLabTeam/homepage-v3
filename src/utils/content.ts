@@ -63,8 +63,8 @@ interface GetResearchArgs {
 export async function getResearch({ project }: GetResearchArgs = {}) {
   const page = (await getCollection('research'))
     .filter((page) => !page.data.deleted && page.data.title !== 'README')
-    .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
-    .sort((a, b) => b.data.tags.sort - a.data.tags.sort);
+    .sort((a, b) => b.data.tags.sort - a.data.tags.sort)
+    .sort((a, b) => b.data.tags.year - a.data.tags.year);
 
   if (project) {
     return page.filter((page) => page.data.project === project);

@@ -97,7 +97,10 @@ export const collections = {
       year: z.coerce.number().optional(),
     }).transform(({ tags, title, category, ...esa }) => ({
       ...esa,
-      tags,
+      tags: {
+        ...tags,
+        year: tags.year ?? esa.createdAt.getFullYear(),
+      },
       title,
       project: category ?? 'other',
       link: `/research/${(category ?? esa.number.toString()).toLowerCase()}#${title}`,

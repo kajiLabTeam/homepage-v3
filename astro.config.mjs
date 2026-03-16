@@ -16,6 +16,12 @@ export default defineConfig({
 
   image: {
     domains: ['img.esa.io'],
+    service: {
+      entrypoint: './src/service/sharp.ts',
+      config: {
+        maxWidth: 1920,
+      },
+    },
   },
 
   vite: {

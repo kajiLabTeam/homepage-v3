@@ -1,0 +1,41 @@
+---
+import { getResearch } from '@/utils/content';
+import PostCard from '@/components/PostCard/index.astro';
+
+interface Props {
+  class?: string;
+}
+const { class: className, ...props } = Astro.props;
+
+const researchList = await getResearch();
+---
+
+<div class:list={['posts', className]} {...props}>
+  <h2 class="title">研究一覧</h2>
+  {researchList.map((research) => <PostCard post={research} />)}
+</div>
+
+<style lang="scss">
+  .posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    
+    @include mobile {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .title {
+      padding-block: 20px 10px;
+      grid-column: 1/-1;
+      text-align: center;
+    }
+
+    .more {
+      grid-column: 1/-1;
+      text-align: center;
+      background-color: $color-bg;
+      font-weight: bold;
+    }
+  }
+</style>

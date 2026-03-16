@@ -1,4 +1,4 @@
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry, type CollectionKey } from 'astro:content';
 
 const IMAGE_REGEX = /[\s\n]*(<img.*?src=['"](.*)['"].*>|!\[.*\]\((.*)\))/;
 
@@ -63,6 +63,7 @@ interface GetResearchArgs {
 export async function getResearch({ project }: GetResearchArgs = {}) {
   const page = (await getCollection('research'))
     .filter((page) => !page.data.deleted && page.data.title !== 'README')
+    .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
     .sort((a, b) => b.data.tags.sort - a.data.tags.sort);
 
   if (project) {
@@ -95,7 +96,7 @@ export async function getSection(name: string) {
   return sections.at(0);
 }
 
-export function getThumbnail(post: CollectionEntry<'posts'>): string {
+export function getThumbnail(post: CollectionEntry<CollectionKey>): string {
   const matches = post.body?.match(IMAGE_REGEX);
   return matches?.at(2) ?? matches?.at(3) ?? '/img/kaji.webp';
 }

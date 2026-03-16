@@ -5,9 +5,10 @@ import NoticeSection from './_sections/NoticeSection.astro';
 import ResearchSection from './_sections/ResearchSection.astro';
 import AboutSection from './_sections/AboutSection.astro';
 import NewsSection from './_sections/NewsSection.astro';
-import RecentPosts from './_sections/RecentPosts.astro';
 import TechStackSection from './_sections/TechStack.astro';
 import OthersSection from './_sections/OthersSection.astro';
+import RecentPostsSection from './_sections/RecentPostsSection.astro';
+import ResearchListSection from './_sections/ResearchListSection.astro';
 ---
 
 <Layout class="main">
@@ -21,7 +22,8 @@ import OthersSection from './_sections/OthersSection.astro';
   <ResearchSection class="research-section" />
   <AboutSection class="about-section" />
   <OthersSection class="others-section" />
-  <RecentPosts class="posts-section" />
+  <RecentPostsSection class="posts-section" />
+  <ResearchListSection class="research-list-section" />
 </Layout>
 
 <style lang="scss">
@@ -98,7 +100,8 @@ import OthersSection from './_sections/OthersSection.astro';
       gap: 30px;
     }
 
-    .posts-section {
+    .posts-section,
+    .research-list-section {
       grid-column: 4/-1;
 
       @include tablet {

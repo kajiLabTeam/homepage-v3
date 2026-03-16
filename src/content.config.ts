@@ -94,12 +94,14 @@ export const collections = {
     loader: glob({ base: './contents/research', pattern: '**/*.{md,mdx}' }),
     schema: _esaSchema({
       sort: z.coerce.number().optional().default(0),
+      year: z.coerce.number().optional(),
     }).transform(({ tags, title, category, ...esa }) => ({
       ...esa,
       tags,
       title,
       project: category ?? 'other',
       link: `/research/${(category ?? esa.number.toString()).toLowerCase()}#${title}`,
+      createdAtStr: `${tags.year ?? esa.createdAt.getFullYear()}年`,
     })),
   }),
   posts: defineCollection({
